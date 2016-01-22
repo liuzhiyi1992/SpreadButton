@@ -22,11 +22,14 @@ class ViewController: UIViewController {
         btn2.setBackgroundImage(UIImage(named: "powerButton"), forState: .Normal)
         let btn3 = UIButton()
         btn3.setBackgroundImage(UIImage(named: "powerButton"), forState: .Normal)
+        let btn4 = UIButton()
+        btn4.setBackgroundImage(UIImage(named: "powerButton"), forState: .Normal)
         
         
         let spreadButton = SpreadButton(image: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton_highlight"))
         
-        spreadButton?.subButtons = [btn1, btn2, btn3]
+        spreadButton?.subButtons = [btn1, btn2, btn3, btn4]
+        
         if spreadButton != nil {
             self.view.addSubview(spreadButton!)
         }

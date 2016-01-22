@@ -9,14 +9,10 @@
 import UIKit
 
 
-let π = M_PI
+let π = CGFloat(M_PI)
 
 class SpreadButton: UIView {
     
-    let defaultCoverColor = UIColor.lightGrayColor()
-    let animationDuring = 0.5
-    
-
     enum SpreadDirection {
         case SpreadDirectionTop
         case SpreadDirectionBottom
@@ -24,32 +20,15 @@ class SpreadButton: UIView {
         case SpreadDirectionRight
     }
     
+    var animationDuring = 0.5
+    
     var coverColor: UIColor {
         set { cover.backgroundColor = newValue }
         get { return cover.backgroundColor! }
     }
     
-    var powerButtonPosition: CGPoint {//记录Power相对于super的位置，还没展开时，就是SpreadButton的位置
-        get { return self.powerButton.center }
-        set {
-            self.center = newValue
-            superViewRelativePosition = newValue
-        }
-    }
     
-//    var direction: SpreadDirection {
-//        get { return self.direction }
-//        set {
-//            self.direction = newValue
-//            if newValue == .SpreadDirectionTop || newValue == .SpreadDirectionLeft || newValue == .SpreadDirectionRight || newValue == .SpreadDirectionBottom {
-//                spreadAngle = 120.0
-//            } else {
-//                spreadAngle = 90.0
-//            }
-//        }
-//    }
     
-    //如何重写set方法
     var direction: SpreadDirection = .SpreadDirectionTop {
         didSet {
             print("didset")
@@ -63,11 +42,22 @@ class SpreadButton: UIView {
     
     var radius: CGFloat = 100.0
     
-    var powerButton: UIButton!
-    var cover: UIView!
-    
     var subButtons: [UIButton]?
     var subButtonImages: NSArray?//装字典，字典里有普通image和highlightImage
+    
+    
+    private let defaultCoverColor = UIColor.lightGrayColor()
+    
+    private var powerButton: UIButton!
+    private var cover: UIView!
+    
+    private var powerButtonPosition: CGPoint {//记录Power相对于super的位置，还没展开时，就是SpreadButton的位置
+        get { return self.powerButton.center }
+        set {
+            self.center = newValue
+            superViewRelativePosition = newValue
+        }
+    }
     
     private var isSpread = false
     
@@ -182,19 +172,18 @@ class SpreadButton: UIView {
     
     
     func spreadSubButton() {
-        direction = .SpreadDirectionTop
+        direction = .SpreadDirectionLeft
         
         let subButtonCrackAngle = spreadAngle / CGFloat(subButtons!.count - 1)
         //startAngle
         var angle: CGFloat
         let startSpace: CGFloat = (180 - spreadAngle)/2
         
-        
         switch direction {
             case .SpreadDirectionTop:
-                angle = -180 + startSpace
+                angle = startSpace
             case .SpreadDirectionBottom:
-                angle = 180 - startSpace
+                angle = -180 + startSpace
             case .SpreadDirectionLeft:
                 angle = 90 + startSpace
             case .SpreadDirectionRight:
@@ -207,7 +196,6 @@ class SpreadButton: UIView {
             btn.frame = powerButton.frame
             //to do 抖动效果
             let outsidePoint = calculatePoint(angle, radius: radius)
-            print(outsidePoint)
 
             let animationPath = movingPath(btn.layer.position, endPoint: outsidePoint, keyPoints: outsidePoint)
             
@@ -225,12 +213,6 @@ class SpreadButton: UIView {
             
             angle += subButtonCrackAngle
         }
-        
-        
-        
-        
-        
-        
     }
     
     func movingPath(startPoint: CGPoint, endPoint: CGPoint, keyPoints: CGPoint...) -> UIBezierPath {
@@ -263,18 +245,17 @@ class SpreadButton: UIView {
         //根据弧度和半径计算点的位置
         //center => powerButton
         
-//        switch direction {
-//        case .SpreadDirectionTop:
-//            return
-//        case .SpreadDirectionBottom:
-//            return
-//        case .SpreadDirectionLeft:
-//            return
-//        case .SpreadDirectionRight:
-//            return
-//
-//        }
-        return CGPointZero
+        switch direction {
+        case .SpreadDirectionTop:
+            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
+        case .SpreadDirectionBottom:
+            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
+        case .SpreadDirectionLeft:
+            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
+        case .SpreadDirectionRight:
+            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
+
+        }
     }
     
     
