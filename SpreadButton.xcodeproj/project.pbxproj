@@ -12,6 +12,7 @@
 		488D7AD51C4CDD59007957F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD31C4CDD59007957F0 /* Main.storyboard */; };
 		488D7AD71C4CDD59007957F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD61C4CDD59007957F0 /* Assets.xcassets */; };
 		488D7ADA1C4CDD59007957F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD81C4CDD59007957F0 /* LaunchScreen.storyboard */; };
+		488D7AE31C4CDE95007957F0 /* SpreadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488D7AE21C4CDE95007957F0 /* SpreadButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		488D7AD61C4CDD59007957F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		488D7AD91C4CDD59007957F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		488D7ADB1C4CDD59007957F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		488D7AE21C4CDE95007957F0 /* SpreadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		488D7ACE1C4CDD59007957F0 /* SpreadButton */ = {
 			isa = PBXGroup;
 			children = (
+				488D7AE11C4CDDC1007957F0 /* Classes */,
 				488D7ACF1C4CDD59007957F0 /* AppDelegate.swift */,
 				488D7AD11C4CDD59007957F0 /* ViewController.swift */,
 				488D7AD31C4CDD59007957F0 /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				488D7ADB1C4CDD59007957F0 /* Info.plist */,
 			);
 			path = SpreadButton;
+			sourceTree = "<group>";
+		};
+		488D7AE11C4CDDC1007957F0 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				488D7AE21C4CDE95007957F0 /* SpreadButton.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			files = (
 				488D7AD21C4CDD59007957F0 /* ViewController.swift in Sources */,
 				488D7AD01C4CDD59007957F0 /* AppDelegate.swift in Sources */,
+				488D7AE31C4CDE95007957F0 /* SpreadButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
