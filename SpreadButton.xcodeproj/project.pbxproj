@@ -13,6 +13,8 @@
 		488D7AD71C4CDD59007957F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD61C4CDD59007957F0 /* Assets.xcassets */; };
 		488D7ADA1C4CDD59007957F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD81C4CDD59007957F0 /* LaunchScreen.storyboard */; };
 		488D7AE31C4CDE95007957F0 /* SpreadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488D7AE21C4CDE95007957F0 /* SpreadButton.swift */; };
+		48AE414A1C523A360037150E /* SpreadSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AE41491C523A360037150E /* SpreadSubButton.swift */; };
+		48CB92AD1C5220F600FE944E /* UIButton+SpreadSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CB92AC1C5220F600FE944E /* UIButton+SpreadSubButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		488D7AD91C4CDD59007957F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		488D7ADB1C4CDD59007957F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		488D7AE21C4CDE95007957F0 /* SpreadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadButton.swift; sourceTree = "<group>"; };
+		48AE41491C523A360037150E /* SpreadSubButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSubButton.swift; sourceTree = "<group>"; };
+		48CB92AC1C5220F600FE944E /* UIButton+SpreadSubButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+SpreadSubButton.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 			isa = PBXGroup;
 			children = (
 				488D7AE21C4CDE95007957F0 /* SpreadButton.swift */,
+				48AE41491C523A360037150E /* SpreadSubButton.swift */,
+				48CB92AC1C5220F600FE944E /* UIButton+SpreadSubButton.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -149,6 +155,8 @@
 				488D7AD21C4CDD59007957F0 /* ViewController.swift in Sources */,
 				488D7AD01C4CDD59007957F0 /* AppDelegate.swift in Sources */,
 				488D7AE31C4CDE95007957F0 /* SpreadButton.swift in Sources */,
+				48AE414A1C523A360037150E /* SpreadSubButton.swift in Sources */,
+				48CB92AD1C5220F600FE944E /* UIButton+SpreadSubButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +304,7 @@
 				488D7AE01C4CDD59007957F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
