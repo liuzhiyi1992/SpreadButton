@@ -29,10 +29,18 @@ class ViewController: UIViewController {
             print("fourth")
         }
         
+        let btn5 = SpreadSubButton(backgroundImage: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton")) { (index, sender) -> Void in
+            print("fourth")
+        }
         
         
         let spreadButton = SpreadButton(image: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton_highlight"))
-        spreadButton?.setSubButtons([btn1, btn2, btn3, btn4])
+        
+        
+        spreadButton?.setSubButtons([btn1, btn2, btn3, btn4, btn5])
+        spreadButton?.animationDuringClose = 0.2
+        spreadButton?.mode = SpreadMode.SpreadModeSickleSpread
+
         
         if spreadButton != nil {
             self.view.addSubview(spreadButton!)

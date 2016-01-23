@@ -11,20 +11,36 @@ import UIKit
 
 let π = CGFloat(M_PI)
 
+enum SpreadDirection {
+    case SpreadDirectionTop
+    case SpreadDirectionBottom
+    case SpreadDirectionLeft
+    case SpreadDirectionRight
+    case SpreadDirectionLeftUp
+    case SpreadDirectionLeftDown
+    case SpreadDirectionRightUp
+    case SpreadDirectionRightDown
+}
+
+enum SpreadMode {
+    case SpreadModeSickleSpread
+    case SpreadModeFlowerSpread
+}
+
 class SpreadButton: UIView {
     
-    enum SpreadDirection {
-        case SpreadDirectionTop
-        case SpreadDirectionBottom
-        case SpreadDirectionLeft
-        case SpreadDirectionRight
-        case SpreadDirectionLeftUp
-        case SpreadDirectionLeftDown
-        case SpreadDirectionRightUp
-        case SpreadDirectionRightDown
+    //During
+    static let animationDuringDefault = 0.5
+    var animationDuring = animationDuringDefault {
+        didSet {
+            animationDuringSpread = animationDuring
+            animationDuringClose = animationDuring
+        }
     }
+    var animationDuringSpread = animationDuringDefault
+    var animationDuringClose = animationDuringDefault
     
-    var animationDuring = 0.2
+    
     var coverAlpha: CGFloat = 0.2
     
     var coverColor: UIColor {
@@ -33,6 +49,8 @@ class SpreadButton: UIView {
     }
     
     
+    
+    var mode: SpreadMode = .SpreadModeSickleSpread
     
     var direction: SpreadDirection = .SpreadDirectionTop {
         didSet {
@@ -164,7 +182,7 @@ class SpreadButton: UIView {
         self.insertSubview(cover, belowSubview: powerButton)
         
         //cover animation
-        UIView.animateWithDuration(animationDuring) { () -> Void in
+        UIView.animateWithDuration(animationDuringSpread) { () -> Void in
             self.cover.alpha = self.coverAlpha
             self.powerButtonRotationAnimate()
         }
@@ -199,21 +217,74 @@ class SpreadButton: UIView {
                 angle = -90
         }
         
+//        for btn in self.subButtons! {
+//            //configure subButton
+//            btn.transform = CGAffineTransformMakeTranslation(1.0, 1.0)
+//            self.insertSubview(btn, belowSubview: powerButton)
+//            btn.center = powerButton.center
+//            
+//            //to do 抖动效果
+//            let outsidePoint = calculatePoint(angle, radius: radius)
+//
+//            let animationPath = movingPath(btn.layer.position, keyPoints: outsidePoint)
+//            
+//            let positionAnimation = CAKeyframeAnimation(keyPath: "position")
+//            positionAnimation.path = animationPath.CGPath
+////            positionAnimation.values = [0.0, 1.0]
+//            positionAnimation.keyTimes = [0.0, 1.0]
+//            positionAnimation.duration = animationDuringSpread
+//            btn.layer.addAnimation(positionAnimation, forKey: "spread")
+//            
+//            CATransaction.begin()
+//            //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
+//            CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+//            btn.layer.position = outsidePoint
+//            CATransaction.commit()
+//            
+//            angle += subButtonCrackAngle
+//        }
+        
+        var startOutSidePoint: CGPoint!
+        var startAngle: CGFloat!
         for btn in self.subButtons! {
             btn.transform = CGAffineTransformMakeTranslation(1.0, 1.0)
             self.insertSubview(btn, belowSubview: powerButton)
-
             btn.center = powerButton.center
+            
+            let btnIndex = subButtons?.indexOf(btn)
+            if btnIndex == 0 {
+                startOutSidePoint = calculatePoint(angle, radius: radius)
+                startAngle = angle
+            }
+            
             //to do 抖动效果
             let outsidePoint = calculatePoint(angle, radius: radius)
-
-            let animationPath = movingPath(btn.layer.position, keyPoints: outsidePoint)
             
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
+            var animationPath: UIBezierPath!
+            
+            switch mode {
+                case .SpreadModeSickleSpread:
+                    if direction == .SpreadDirectionTop || direction == .SpreadDirectionBottom || direction == .SpreadDirectionLeft || direction == .SpreadDirectionRight {
+                        //---It does not provide SickleSpread in this four directions---
+                        animationPath = movingPath(btn.layer.position, keyPoints: outsidePoint)
+                        positionAnimation.keyTimes = [0.0, 1.0]
+                    } else {
+                        if btnIndex == 0 {
+                            animationPath = movingPath(btn.layer.position, keyPoints: startOutSidePoint)
+                            positionAnimation.keyTimes = [0.0, 0.2]
+                        } else {
+                            animationPath = movingPath(btn.layer.position, endPoint: startOutSidePoint, startAngle: startAngle/180*π, endAngle: angle/180*π, center: btn.layer.position)
+                            positionAnimation.keyTimes = [0.0, 0.2,    0.3, 0.9,    0.9, 0.95,   0.95, 1.0]
+                        }
+                    }
+                case .SpreadModeFlowerSpread:
+                    animationPath = movingPath(btn.layer.position, keyPoints: outsidePoint)
+                    positionAnimation.keyTimes = [0.0, 1.0]
+            }
             positionAnimation.path = animationPath.CGPath
-            positionAnimation.values = [0.0, 1.0]
-            positionAnimation.duration = animationDuring
-            btn.layer.addAnimation(positionAnimation, forKey: "spread")
+            positionAnimation.duration = animationDuringSpread
+            btn.layer.addAnimation(positionAnimation, forKey: "sickleSpread")
             
             CATransaction.begin()
             //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
@@ -223,6 +294,8 @@ class SpreadButton: UIView {
             
             angle += subButtonCrackAngle
         }
+        
+        
     }
     
     
@@ -231,7 +304,7 @@ class SpreadButton: UIView {
         isSpread = false
         
         //cover animation
-        UIView.animateWithDuration(animationDuring, animations: { () -> Void in
+        UIView.animateWithDuration(animationDuringClose, animations: { () -> Void in
             self.cover.alpha = 0
             self.powerButtonCloseAnimate()
             }) { (flag) -> Void in
@@ -251,7 +324,7 @@ class SpreadButton: UIView {
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
             positionAnimation.path = animationPath.CGPath
             positionAnimation.values = [0.0, 1.0]
-            positionAnimation.duration = animationDuring
+            positionAnimation.duration = animationDuringClose
             btn.layer.addAnimation(positionAnimation, forKey: "close")
             
             CATransaction.begin()
@@ -293,6 +366,18 @@ class SpreadButton: UIView {
             path.addLineToPoint(point)
         }
         return path
+    }
+    
+    func movingPath(startPoint: CGPoint, endPoint: CGPoint, startAngle: CGFloat, endAngle: CGFloat, center: CGPoint) -> UIBezierPath {
+        let path = UIBezierPath()
+        path.moveToPoint(startPoint)
+        path.addLineToPoint(endPoint)
+        path.addArcWithCenter(center, radius: radius, startAngle: -startAngle, endAngle: -endAngle, clockwise: false)
+        path.addArcWithCenter(center, radius: radius, startAngle: -endAngle, endAngle: -endAngle - 2/180*π, clockwise: false)
+        path.addArcWithCenter(center, radius: radius, startAngle: -endAngle - 2/180*π, endAngle: -endAngle, clockwise: true)
+        
+        return path
+        
     }
     
     
