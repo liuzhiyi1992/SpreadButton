@@ -30,7 +30,7 @@ enum SpreadMode {
 class SpreadButton: UIView {
     
     //During
-    static let animationDuringDefault = 0.5
+    static let animationDuringDefault = 0.2
     var animationDuring = animationDuringDefault {
         didSet {
             animationDuringSpread = animationDuring
@@ -186,7 +186,6 @@ class SpreadButton: UIView {
             self.cover.alpha = self.coverAlpha
             self.powerButtonRotationAnimate()
         }
-        
         //按钮展开
         spreadSubButton()
     }
@@ -259,6 +258,8 @@ class SpreadButton: UIView {
             
             //to do 抖动效果
             let outsidePoint = calculatePoint(angle, radius: radius)
+            let shockOutsidePoint = calculatePoint(angle, radius: radius + 10)
+            let shockInsidePoint = calculatePoint(angle, radius: radius - 3)
             
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
             var animationPath: UIBezierPath!
@@ -267,23 +268,30 @@ class SpreadButton: UIView {
                 case .SpreadModeSickleSpread:
                     if direction == .SpreadDirectionTop || direction == .SpreadDirectionBottom || direction == .SpreadDirectionLeft || direction == .SpreadDirectionRight {
                         //---It does not provide SickleSpread in this four directions---
-                        animationPath = movingPath(btn.layer.position, keyPoints: outsidePoint)
-                        positionAnimation.keyTimes = [0.0, 1.0]
+                        animationPath = movingPath(btn.layer.position, keyPoints: shockOutsidePoint, shockInsidePoint, outsidePoint)
+                        positionAnimation.keyTimes = [0.0, 0.8, 0.93, 1.0]
+                        positionAnimation.duration = animationDuringSpread
                     } else {
                         if btnIndex == 0 {
                             animationPath = movingPath(btn.layer.position, keyPoints: startOutSidePoint)
                             positionAnimation.keyTimes = [0.0, 0.2]
-                        } else {
-                            animationPath = movingPath(btn.layer.position, endPoint: startOutSidePoint, startAngle: startAngle/180*π, endAngle: angle/180*π, center: btn.layer.position)
+                        } else if btnIndex != ((subButtons?.count)! - 1) {
+                            animationPath = movingPath(btn.layer.position, endPoint: startOutSidePoint, startAngle: startAngle/180*π, endAngle: angle/180*π, center: btn.layer.position, shock: false)
+                            positionAnimation.keyTimes = [0.0, 0.2,    0.3, 1.0]
+                        }
+                        else {
+                            animationPath = movingPath(btn.layer.position, endPoint: startOutSidePoint, startAngle: startAngle/180*π, endAngle: angle/180*π, center: btn.layer.position, shock: true)
                             positionAnimation.keyTimes = [0.0, 0.2,    0.3, 0.9,    0.9, 0.95,   0.95, 1.0]
                         }
+                        positionAnimation.duration = animationDuringSpread*(1+0.2*Double((btnIndex?.hashValue)!))
                     }
                 case .SpreadModeFlowerSpread:
-                    animationPath = movingPath(btn.layer.position, keyPoints: outsidePoint)
-                    positionAnimation.keyTimes = [0.0, 1.0]
+                    animationPath = movingPath(btn.layer.position, keyPoints: shockOutsidePoint, shockInsidePoint, outsidePoint)
+                    positionAnimation.keyTimes = [0.0, 0.8, 0.93, 1.0]
+                    positionAnimation.duration = animationDuringSpread
             }
             positionAnimation.path = animationPath.CGPath
-            positionAnimation.duration = animationDuringSpread
+//            positionAnimation.duration = animationDuringSpread*(1+0.2*Double((btnIndex?.hashValue)!))
             btn.layer.addAnimation(positionAnimation, forKey: "sickleSpread")
             
             CATransaction.begin()
@@ -368,13 +376,19 @@ class SpreadButton: UIView {
         return path
     }
     
-    func movingPath(startPoint: CGPoint, endPoint: CGPoint, startAngle: CGFloat, endAngle: CGFloat, center: CGPoint) -> UIBezierPath {
+    func movingPath(startPoint: CGPoint, endPoint: CGPoint, startAngle: CGFloat, endAngle: CGFloat, center: CGPoint, shock: Bool) -> UIBezierPath {
         let path = UIBezierPath()
         path.moveToPoint(startPoint)
         path.addLineToPoint(endPoint)
-        path.addArcWithCenter(center, radius: radius, startAngle: -startAngle, endAngle: -endAngle, clockwise: false)
-        path.addArcWithCenter(center, radius: radius, startAngle: -endAngle, endAngle: -endAngle - 2/180*π, clockwise: false)
-        path.addArcWithCenter(center, radius: radius, startAngle: -endAngle - 2/180*π, endAngle: -endAngle, clockwise: true)
+        
+        if shock {
+            path.addArcWithCenter(center, radius: radius, startAngle: -startAngle, endAngle: -endAngle - 3/180*π, clockwise: false)
+            path.addArcWithCenter(center, radius: radius, startAngle: -endAngle - 3/180*π, endAngle: -endAngle + 1/180*π, clockwise: true)
+            path.addArcWithCenter(center, radius: radius, startAngle: -endAngle + 1/180*π, endAngle: -endAngle, clockwise: false)
+        } else {
+            path.addArcWithCenter(center, radius: radius, startAngle: -startAngle, endAngle: -endAngle, clockwise: false)
+        }
+        
         
         return path
         
