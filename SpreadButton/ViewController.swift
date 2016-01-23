@@ -14,21 +14,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let btn1 = SpreadSubButton(backgroundImage: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton")) { (index, sender) -> Void in
-            print("第一个按钮被按了")
+            print("first")
         }
         
         let btn2 = SpreadSubButton(backgroundImage: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton")) { (index, sender) -> Void in
-            print("第二个按钮被按了")
+            print("second")
         }
         
         let btn3 = SpreadSubButton(backgroundImage: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton")) { (index, sender) -> Void in
-            print("第三个按钮被按了")
+            print("third")
+        }
+        
+        let btn4 = SpreadSubButton(backgroundImage: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton")) { (index, sender) -> Void in
+            print("fourth")
         }
         
         
         
         let spreadButton = SpreadButton(image: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton_highlight"))
-        spreadButton?.setSubButtons([btn1, btn2, btn3])
+        spreadButton?.setSubButtons([btn1, btn2, btn3, btn4])
         
         if spreadButton != nil {
             self.view.addSubview(spreadButton!)
