@@ -29,8 +29,14 @@ enum SpreadMode {
 
 class SpreadButton: UIView {
     
+    private static let sickleSpreadAngle: CGFloat = 90.0
+    private static let flowerSpreadAngle: CGFloat = 120.0
+    private static let spredaDirectionDefault: SpreadDirection = .SpreadDirectionTop
+    private static let spreadRadiusDefault: CGFloat = 100.0
+    private static let coverAlphaDefault: CGFloat = 0.2
+    private static let animationDuringDefault = 0.2
+    
     //During
-    static let animationDuringDefault = 0.2
     var animationDuring = animationDuringDefault {
         didSet {
             animationDuringSpread = animationDuring
@@ -40,38 +46,33 @@ class SpreadButton: UIView {
     var animationDuringSpread = animationDuringDefault
     var animationDuringClose = animationDuringDefault
     
-    
-    var coverAlpha: CGFloat = 0.2
-    
+    var coverAlpha: CGFloat = coverAlphaDefault
     var coverColor: UIColor {
         set { cover.backgroundColor = newValue }
         get { return cover.backgroundColor! }
     }
     
-    
-    
     var mode: SpreadMode = .SpreadModeSickleSpread
     
-    var direction: SpreadDirection = .SpreadDirectionTop {
+    var radius: CGFloat = spreadRadiusDefault
+    
+    var direction: SpreadDirection = spredaDirectionDefault {
         didSet {
             print("didset")
             if direction == .SpreadDirectionTop || direction == .SpreadDirectionLeft || direction == .SpreadDirectionRight || direction == .SpreadDirectionBottom {
-                spreadAngle = 120.0
+                spreadAngle = SpreadButton.flowerSpreadAngle
             } else {
-                spreadAngle = 90.0
+                spreadAngle = SpreadButton.sickleSpreadAngle
             }
         }
     }
     
-    var radius: CGFloat = 100.0
-    
     private var subButtons: [SpreadSubButton]?
-    var subButtonImages: NSArray?//装字典，字典里有普通image和highlightImage
-    
-    
+//    var subButtonImages: NSArray?//装字典，字典里有普通image和highlightImage
     private let defaultCoverColor = UIColor.lightGrayColor()
     
     private var powerButton: UIButton!
+    
     private var cover: UIView!
     
     private var powerButtonPosition: CGPoint {//记录Power相对于super的位置，还没展开时，就是SpreadButton的位置
@@ -86,24 +87,7 @@ class SpreadButton: UIView {
     
     private var superViewRelativePosition: CGPoint!//记录展开按钮相对于super的位置
     
-    private var spreadAngle: CGFloat = 120.0
-    
-    //    var angle = {(direction: SpreadDirection) -> CGFloat in
-    //        let startSpace: CGFloat = (180 - spreadAngle)/2
-    //        switch direction {
-    //        case .SpreadDirectionTop:
-    //            return -180 + startSpace
-    //        case .SpreadDirectionBottom:
-    //            return 180 - startSpace
-    //        case .SpreadDirectionLeft:
-    //            return 90 + startSpace
-    //        case .SpreadDirectionRight:
-    //            return -90 + startSpace
-    //        }
-    //    }
-    
-    
-    
+    private var spreadAngle: CGFloat = flowerSpreadAngle
     
     
     
@@ -166,8 +150,6 @@ class SpreadButton: UIView {
             print("subButton can not be nil")
             return
         }
-        
-        direction = .SpreadDirectionRightUp
         print("spread")
         isSpread = true
         
@@ -215,33 +197,6 @@ class SpreadButton: UIView {
             case .SpreadDirectionRightDown:
                 angle = -90
         }
-        
-//        for btn in self.subButtons! {
-//            //configure subButton
-//            btn.transform = CGAffineTransformMakeTranslation(1.0, 1.0)
-//            self.insertSubview(btn, belowSubview: powerButton)
-//            btn.center = powerButton.center
-//            
-//            //to do 抖动效果
-//            let outsidePoint = calculatePoint(angle, radius: radius)
-//
-//            let animationPath = movingPath(btn.layer.position, keyPoints: outsidePoint)
-//            
-//            let positionAnimation = CAKeyframeAnimation(keyPath: "position")
-//            positionAnimation.path = animationPath.CGPath
-////            positionAnimation.values = [0.0, 1.0]
-//            positionAnimation.keyTimes = [0.0, 1.0]
-//            positionAnimation.duration = animationDuringSpread
-//            btn.layer.addAnimation(positionAnimation, forKey: "spread")
-//            
-//            CATransaction.begin()
-//            //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
-//            CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-//            btn.layer.position = outsidePoint
-//            CATransaction.commit()
-//            
-//            angle += subButtonCrackAngle
-//        }
         
         var startOutSidePoint: CGPoint!
         var startAngle: CGFloat!
@@ -303,8 +258,6 @@ class SpreadButton: UIView {
             
             angle += subButtonCrackAngle
         }
-        
-        
     }
     
     
@@ -368,7 +321,6 @@ class SpreadButton: UIView {
             dismissGroupAnimation.duration = animationDuringClose
             
             nonNilExclusiveBtn.layer.addAnimation(dismissGroupAnimation, forKey: "closeGroup")
-//            nonNilExclusiveBtn.layer.addAnimation(alphaAnimation, forKey: "alphaA")
             
             CATransaction.begin()
             //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
@@ -381,25 +333,9 @@ class SpreadButton: UIView {
     }
     
     
-    
     func calculatePoint(angle: CGFloat, radius: CGFloat) -> CGPoint {
         //根据弧度和半径计算点的位置
         //center => powerButton
-//        switch direction {
-//        case .SpreadDirectionTop:
-//            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
-//        case .SpreadDirectionBottom:
-//            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
-//        case .SpreadDirectionLeft:
-//            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
-//        case .SpreadDirectionRight:
-//            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
-//        case .SpreadDirectionLeftUp:
-//            return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
-//            
-//            
-//        }
-        
         return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
     }
     
@@ -426,11 +362,8 @@ class SpreadButton: UIView {
             path.addArcWithCenter(center, radius: radius, startAngle: -startAngle, endAngle: -endAngle, clockwise: false)
         }
         
-        
         return path
-        
     }
-    
     
     override func willMoveToSuperview(newSuperview: UIView?) {
         cover.frame = (newSuperview?.bounds)!
@@ -444,7 +377,7 @@ class SpreadButton: UIView {
         powerButton.transform = CGAffineTransformMakeRotation(0)
     }
     
-    //set
+    //setter
     func setSubButtons(buttons: [SpreadSubButton?]) {
         _ = buttons.flatMap { $0?.addTarget(self, action: "clickedSubButton:", forControlEvents: .TouchUpInside) }
         let nonNilButtons = buttons.flatMap { $0 }
@@ -459,6 +392,5 @@ class SpreadButton: UIView {
             sender.clickedBlock?(index:nonNilIndex, sender: sender)
         }
     }
-    
     
 }

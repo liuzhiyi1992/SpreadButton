@@ -13,9 +13,7 @@ typealias ButtonClickBlock = (index: Int, sender: UIButton) -> Void
 
 class SpreadSubButton: UIButton {
     
-    
     var clickedBlock: ButtonClickBlock?
-    
     
     init(backgroundImage: UIImage?, highlightImage: UIImage?, clickedBlock: ButtonClickBlock?) {
         
@@ -37,7 +35,4 @@ class SpreadSubButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    
 }
