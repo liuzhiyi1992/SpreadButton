@@ -151,12 +151,12 @@ class SpreadButton: UIView {
     
     
     func tapPowerButton(button: UIButton) {
-        isSpread ? closeButton() : spreadButton()
+        isSpread ? closeButton(nil) : spreadButton()
     }
     
     func tapCover() {
         if isSpread {
-            closeButton()
+            closeButton(nil)
         }
     }
     
@@ -248,6 +248,7 @@ class SpreadButton: UIView {
         for btn in self.subButtons! {
             btn.transform = CGAffineTransformMakeTranslation(1.0, 1.0)
             self.insertSubview(btn, belowSubview: powerButton)
+            btn.alpha = 1.0
             btn.center = powerButton.center
             
             let btnIndex = subButtons?.indexOf(btn)
@@ -291,8 +292,8 @@ class SpreadButton: UIView {
                     positionAnimation.duration = animationDuringSpread
             }
             positionAnimation.path = animationPath.CGPath
-//            positionAnimation.duration = animationDuringSpread*(1+0.2*Double((btnIndex?.hashValue)!))
             btn.layer.addAnimation(positionAnimation, forKey: "sickleSpread")
+            positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             
             CATransaction.begin()
             //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
@@ -307,7 +308,7 @@ class SpreadButton: UIView {
     }
     
     
-    func closeButton() {
+    func closeButton(exclusiveBtn: SpreadSubButton?) {
         print("close")
         isSpread = false
         
@@ -321,18 +322,24 @@ class SpreadButton: UIView {
                 self.powerButton.frame = self.bounds
         }
         
-        closeSubButton()
-        
+        closeSubButton(exclusiveBtn)
     }
     
-    func closeSubButton() {
+    func closeSubButton(exclusiveBtn: SpreadSubButton?) {
         
         for btn in subButtons! {
+            if exclusiveBtn != nil {
+                if btn != exclusiveBtn {
+                    btn.removeFromSuperview()
+                }
+                continue
+            }
             let animationPath = movingPath(btn.layer.position, keyPoints: powerButton.layer.position)
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
             positionAnimation.path = animationPath.CGPath
             positionAnimation.values = [0.0, 1.0]
             positionAnimation.duration = animationDuringClose
+            positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             btn.layer.addAnimation(positionAnimation, forKey: "close")
             
             CATransaction.begin()
@@ -340,6 +347,36 @@ class SpreadButton: UIView {
             CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
             btn.layer.position = powerButton.layer.position
             CATransaction.commit()
+        }
+        
+        
+        if let nonNilExclusiveBtn = exclusiveBtn {
+            let alphaAnimation = CABasicAnimation(keyPath: "opacity")
+            alphaAnimation.fromValue = 1.0
+            alphaAnimation.toValue = 0.0
+            alphaAnimation.duration = animationDuringClose
+            alphaAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+            
+            let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+            scaleAnimation.fromValue = 1.0
+            scaleAnimation.toValue = 3.0
+            scaleAnimation.duration = animationDuringClose
+            scaleAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionDefault)
+            
+            let dismissGroupAnimation = CAAnimationGroup()
+            dismissGroupAnimation.animations = [alphaAnimation, scaleAnimation]
+            dismissGroupAnimation.duration = animationDuringClose
+            
+            nonNilExclusiveBtn.layer.addAnimation(dismissGroupAnimation, forKey: "closeGroup")
+//            nonNilExclusiveBtn.layer.addAnimation(alphaAnimation, forKey: "alphaA")
+            
+            CATransaction.begin()
+            //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
+            CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+            nonNilExclusiveBtn.transform = CGAffineTransformMakeScale(3.0, 3.0)
+            nonNilExclusiveBtn.layer.opacity = 0.0
+            CATransaction.commit()
+            
         }
     }
     
@@ -416,7 +453,7 @@ class SpreadButton: UIView {
     }
     
     func clickedSubButton(sender: SpreadSubButton) {
-        closeButton()
+        closeButton(sender)
         let index = subButtons?.indexOf(sender)
         if let nonNilIndex = index {
             sender.clickedBlock?(index:nonNilIndex, sender: sender)
