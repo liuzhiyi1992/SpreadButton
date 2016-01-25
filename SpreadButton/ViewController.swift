@@ -17,25 +17,25 @@ class ViewController: UIViewController {
             print("first")
         }
         
-        let btn2 = SpreadSubButton(backgroundImage: UIImage(named: "pencil"), highlightImage: UIImage(named: "pencil")) { (index, sender) -> Void in
+        let btn2 = SpreadSubButton(backgroundImage: UIImage(named: "pencil"), highlightImage: UIImage(named: "pencil_highlight")) { (index, sender) -> Void in
             print("second")
         }
         
-        let btn3 = SpreadSubButton(backgroundImage: UIImage(named: "juice"), highlightImage: UIImage(named: "juice")) { (index, sender) -> Void in
+        let btn3 = SpreadSubButton(backgroundImage: UIImage(named: "juice"), highlightImage: UIImage(named: "juice_highlight")) { (index, sender) -> Void in
             print("third")
         }
         
-        let btn4 = SpreadSubButton(backgroundImage: UIImage(named: "service"), highlightImage: UIImage(named: "service")) { (index, sender) -> Void in
+        let btn4 = SpreadSubButton(backgroundImage: UIImage(named: "service"), highlightImage: UIImage(named: "service_highlight")) { (index, sender) -> Void in
             print("fourth")
         }
         
-        let btn5 = SpreadSubButton(backgroundImage: UIImage(named: "shower"), highlightImage: UIImage(named: "shower")) { (index, sender) -> Void in
+        let btn5 = SpreadSubButton(backgroundImage: UIImage(named: "shower"), highlightImage: UIImage(named: "shower_highlight")) { (index, sender) -> Void in
             print("fifth")
         }
         
         
         
-        let spreadButton = SpreadButton(image: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton"), position: CGPointMake(40, UIScreen.mainScreen().bounds.height - 40))
+        let spreadButton = SpreadButton(image: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton_highlight"), position: CGPointMake(40, UIScreen.mainScreen().bounds.height - 40))
         
         spreadButton?.setSubButtons([btn1, btn2, btn3, btn4, btn5])
         spreadButton?.mode = SpreadMode.SpreadModeSickleSpread

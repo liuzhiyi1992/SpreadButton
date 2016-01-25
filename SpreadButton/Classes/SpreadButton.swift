@@ -68,7 +68,6 @@ class SpreadButton: UIView {
     }
     
     private var subButtons: [SpreadSubButton]?
-//    var subButtonImages: NSArray?//装字典，字典里有普通image和highlightImage
     private let defaultCoverColor = UIColor.whiteColor()
     
     private var powerButton: UIButton!
@@ -125,8 +124,6 @@ class SpreadButton: UIView {
     func configureMainButton(image: UIImage, highlightImage: UIImage?) {
         powerButton = UIButton(frame: CGRectMake(0, 0, image.size.width, image.size.height))
         //初始位置
-        //to do 考虑开放出去
-//        powerButtonPosition = CGPointMake(40, UIScreen.mainScreen().bounds.height - 40)
         powerButton.setBackgroundImage(image, forState: .Normal)
         if let nonNilhighlightImage = highlightImage {
             powerButton.setBackgroundImage(nonNilhighlightImage, forState: .Highlighted)
