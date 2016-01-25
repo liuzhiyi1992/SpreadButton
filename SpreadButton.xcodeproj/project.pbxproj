@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4801DDB11C5659B2000D83A5 /* SpreadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4801DDAE1C5659B2000D83A5 /* SpreadButton.swift */; };
+		4801DDB21C5659B2000D83A5 /* SpreadSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4801DDAF1C5659B2000D83A5 /* SpreadSubButton.swift */; };
 		488D7AD01C4CDD59007957F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488D7ACF1C4CDD59007957F0 /* AppDelegate.swift */; };
 		488D7AD21C4CDD59007957F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488D7AD11C4CDD59007957F0 /* ViewController.swift */; };
 		488D7AD51C4CDD59007957F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD31C4CDD59007957F0 /* Main.storyboard */; };
 		488D7AD71C4CDD59007957F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD61C4CDD59007957F0 /* Assets.xcassets */; };
 		488D7ADA1C4CDD59007957F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD81C4CDD59007957F0 /* LaunchScreen.storyboard */; };
-		488D7AE31C4CDE95007957F0 /* SpreadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488D7AE21C4CDE95007957F0 /* SpreadButton.swift */; };
-		48AE414A1C523A360037150E /* SpreadSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48AE41491C523A360037150E /* SpreadSubButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4801DDAE1C5659B2000D83A5 /* SpreadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadButton.swift; sourceTree = "<group>"; };
+		4801DDAF1C5659B2000D83A5 /* SpreadSubButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSubButton.swift; sourceTree = "<group>"; };
 		488D7ACC1C4CDD59007957F0 /* SpreadButton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpreadButton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		488D7ACF1C4CDD59007957F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		488D7AD11C4CDD59007957F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,8 +26,6 @@
 		488D7AD61C4CDD59007957F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		488D7AD91C4CDD59007957F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		488D7ADB1C4CDD59007957F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		488D7AE21C4CDE95007957F0 /* SpreadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadButton.swift; sourceTree = "<group>"; };
-		48AE41491C523A360037150E /* SpreadSubButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSubButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +39,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4801DDAC1C5659B2000D83A5 /* ZYSpreadButton */ = {
+			isa = PBXGroup;
+			children = (
+				4801DDAD1C5659B2000D83A5 /* Classes */,
+			);
+			path = ZYSpreadButton;
+			sourceTree = "<group>";
+		};
+		4801DDAD1C5659B2000D83A5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4801DDAE1C5659B2000D83A5 /* SpreadButton.swift */,
+				4801DDAF1C5659B2000D83A5 /* SpreadSubButton.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		488D7AC31C4CDD59007957F0 = {
 			isa = PBXGroup;
 			children = (
@@ -58,7 +75,7 @@
 		488D7ACE1C4CDD59007957F0 /* SpreadButton */ = {
 			isa = PBXGroup;
 			children = (
-				488D7AE11C4CDDC1007957F0 /* Classes */,
+				4801DDAC1C5659B2000D83A5 /* ZYSpreadButton */,
 				488D7ACF1C4CDD59007957F0 /* AppDelegate.swift */,
 				488D7AD11C4CDD59007957F0 /* ViewController.swift */,
 				488D7AD31C4CDD59007957F0 /* Main.storyboard */,
@@ -67,15 +84,6 @@
 				488D7ADB1C4CDD59007957F0 /* Info.plist */,
 			);
 			path = SpreadButton;
-			sourceTree = "<group>";
-		};
-		488D7AE11C4CDDC1007957F0 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				488D7AE21C4CDE95007957F0 /* SpreadButton.swift */,
-				48AE41491C523A360037150E /* SpreadSubButton.swift */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,9 +158,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				488D7AD21C4CDD59007957F0 /* ViewController.swift in Sources */,
+				4801DDB21C5659B2000D83A5 /* SpreadSubButton.swift in Sources */,
 				488D7AD01C4CDD59007957F0 /* AppDelegate.swift in Sources */,
-				488D7AE31C4CDE95007957F0 /* SpreadButton.swift in Sources */,
-				48AE414A1C523A360037150E /* SpreadSubButton.swift in Sources */,
+				4801DDB11C5659B2000D83A5 /* SpreadButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
