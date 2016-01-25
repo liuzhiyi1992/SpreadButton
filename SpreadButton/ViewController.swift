@@ -34,22 +34,26 @@ class ViewController: UIViewController {
         }
         
         
-        
         let spreadButton = SpreadButton(image: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton_highlight"), position: CGPointMake(40, UIScreen.mainScreen().bounds.height - 40))
-        
+
         spreadButton?.setSubButtons([btn1, btn2, btn3, btn4, btn5])
         spreadButton?.mode = SpreadMode.SpreadModeSickleSpread
         spreadButton?.direction = SpreadDirection.SpreadDirectionRightUp
+        spreadButton?.radius = 120
         
-        //and you can assign a newValue to change the default
-        /*
+        /*  and you can assign a newValue to change the default
         spreadButton?.animationDuring = 0.2
         spreadButton?.animationDuringClose = 0.25
         spreadButton?.radius = 180
         spreadButton?.coverAlpha = 0.3
         spreadButton?.coverColor = UIColor.yellowColor()
         */
-        spreadButton?.radius = 120
+        
+        //you can assign the Blocks like this
+        spreadButton?.buttonWillSpreadBlock = { print($0.description) }
+        spreadButton?.buttonDidSpreadBlock = { _ in print("did spread") }
+        spreadButton?.buttonWillCloseBlock = { _ in print("will closed") }
+        spreadButton?.buttonDidCloseBlock = { _ in print("did closed") }
         
         if spreadButton != nil {
             self.view.addSubview(spreadButton!)

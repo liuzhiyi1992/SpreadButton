@@ -27,7 +27,29 @@ enum SpreadMode {
     case SpreadModeFlowerSpread
 }
 
+typealias ButtonWillSpreadBlock = (spreadButton: SpreadButton) -> Void
+typealias ButtonDidSpreadBlock = (spreadButton: SpreadButton) -> Void
+typealias ButtonWillCloseBlock = (spreadButton: SpreadButton) -> Void
+typealias ButtonDidCloseBlock = (spreadButton: SpreadButton) -> Void
+
+
 class SpreadButton: UIView {
+    
+    lazy var buttonWillSpreadBlock: ButtonWillSpreadBlock = {
+        return {print("Button Will Spread")}
+    }()
+    
+    lazy var buttonDidSpreadBlock: ButtonDidSpreadBlock = {
+        return { print("Button Did Spread") }
+    }()
+    
+    lazy var buttonWillCloseBlock: ButtonWillCloseBlock = {
+        return { print("Button Will Close") }
+    }()
+    
+    lazy var buttonDidCloseBlock: ButtonDidCloseBlock = {
+        return { print("Button Did Closed") }
+    }()
     
     private static let sickleSpreadAngleDefault: CGFloat = 90.0
     private static let flowerSpreadAngleDefault: CGFloat = 120.0
@@ -183,6 +205,9 @@ class SpreadButton: UIView {
             return
         }
         
+        //Block
+        buttonWillSpreadBlock(spreadButton: self)
+        
         animator.removeAllBehaviors()
         //todo要不要
         self.frame = mainFrame
@@ -207,6 +232,9 @@ class SpreadButton: UIView {
         }
         //按钮展开
         spreadSubButton()
+        
+        //Block
+        buttonDidSpreadBlock(spreadButton: self)
     }
     
     //子按钮展开动作
@@ -299,6 +327,9 @@ class SpreadButton: UIView {
     
     
     func closeButton(exclusiveBtn: SpreadSubButton?) {
+        //Block
+        buttonWillCloseBlock(spreadButton: self)
+        
         print("close")
         isSpread = false
         
@@ -313,6 +344,9 @@ class SpreadButton: UIView {
         }
         
         closeSubButton(exclusiveBtn)
+        
+        //Block
+        buttonDidCloseBlock(spreadButton: self)
     }
     
     func closeSubButton(exclusiveBtn: SpreadSubButton?) {
