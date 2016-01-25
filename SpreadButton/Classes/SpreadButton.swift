@@ -132,12 +132,6 @@ class SpreadButton: UIView {
         configureMainButton(nonNilImage, highlightImage: highlightImage)
         configureCover()
     }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-    }
-    
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -163,7 +157,6 @@ class SpreadButton: UIView {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapCover")
         cover.addGestureRecognizer(tapGestureRecognizer)
     }
-    
     
     func configureGesture() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "panSpreadButton:")
@@ -204,15 +197,9 @@ class SpreadButton: UIView {
             print("subButton can not be nil")
             return
         }
-        
         //Block
         buttonWillSpreadBlock(spreadButton: self)
-        
         animator.removeAllBehaviors()
-        //todo要不要
-        self.frame = mainFrame
-        
-        print("spread")
         isSpread = true
         
         //改变frame, 充满superView
@@ -277,7 +264,6 @@ class SpreadButton: UIView {
                 startAngle = angle
             }
             
-            //to do 抖动效果
             let outsidePoint = calculatePoint(angle, radius: radius)
             let shockOutsidePoint = calculatePoint(angle, radius: radius + 10)
             let shockInsidePoint = calculatePoint(angle, radius: radius - 3)
@@ -329,8 +315,6 @@ class SpreadButton: UIView {
     func closeButton(exclusiveBtn: SpreadSubButton?) {
         //Block
         buttonWillCloseBlock(spreadButton: self)
-        
-        print("close")
         isSpread = false
         
         //cover animation
@@ -350,7 +334,6 @@ class SpreadButton: UIView {
     }
     
     func closeSubButton(exclusiveBtn: SpreadSubButton?) {
-        
         for btn in subButtons! {
             if exclusiveBtn != nil {
                 if btn != exclusiveBtn {
@@ -372,7 +355,6 @@ class SpreadButton: UIView {
             btn.layer.position = powerButton.layer.position
             CATransaction.commit()
         }
-        
         
         if let nonNilExclusiveBtn = exclusiveBtn {
             let alphaAnimation = CABasicAnimation(keyPath: "opacity")

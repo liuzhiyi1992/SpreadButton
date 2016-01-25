@@ -50,7 +50,8 @@ class ViewController: UIViewController {
         */
         
         //you can assign the Blocks like this
-        spreadButton?.buttonWillSpreadBlock = { print($0.description) }
+        
+        spreadButton?.buttonWillSpreadBlock = { print(CGRectGetMaxY($0.frame)) }
         spreadButton?.buttonDidSpreadBlock = { _ in print("did spread") }
         spreadButton?.buttonWillCloseBlock = { _ in print("will closed") }
         spreadButton?.buttonDidCloseBlock = { _ in print("did closed") }
@@ -58,11 +59,6 @@ class ViewController: UIViewController {
         if spreadButton != nil {
             self.view.addSubview(spreadButton!)
         }
-    }
-
-    
-    @IBAction func clickMainViewButton(sender: AnyObject) {
-        print("on click")
     }
     
     override func didReceiveMemoryWarning() {
