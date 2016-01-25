@@ -29,8 +29,8 @@ enum SpreadMode {
 
 class SpreadButton: UIView {
     
-    private static let sickleSpreadAngle: CGFloat = 90.0
-    private static let flowerSpreadAngle: CGFloat = 120.0
+    private static let sickleSpreadAngleDefault: CGFloat = 90.0
+    private static let flowerSpreadAngleDefault: CGFloat = 120.0
     private static let spredaDirectionDefault: SpreadDirection = .SpreadDirectionTop
     private static let spreadRadiusDefault: CGFloat = 100.0
     private static let coverAlphaDefault: CGFloat = 0.2
@@ -60,23 +60,27 @@ class SpreadButton: UIView {
         didSet {
             print("didset")
             if direction == .SpreadDirectionTop || direction == .SpreadDirectionLeft || direction == .SpreadDirectionRight || direction == .SpreadDirectionBottom {
-                spreadAngle = SpreadButton.flowerSpreadAngle
+                spreadAngle = SpreadButton.flowerSpreadAngleDefault
             } else {
-                spreadAngle = SpreadButton.sickleSpreadAngle
+                spreadAngle = SpreadButton.sickleSpreadAngleDefault
             }
         }
     }
     
     private var subButtons: [SpreadSubButton]?
 //    var subButtonImages: NSArray?//装字典，字典里有普通image和highlightImage
-    private let defaultCoverColor = UIColor.lightGrayColor()
+    private let defaultCoverColor = UIColor.whiteColor()
     
     private var powerButton: UIButton!
     
     private var cover: UIView!
     
+    private var animator: UIDynamicAnimator!
+    
+    private var mainFrame: CGRect!
+    
     private var powerButtonPosition: CGPoint {//记录Power相对于super的位置，还没展开时，就是SpreadButton的位置
-        get { return self.powerButton.center }
+        get { return isSpread ? self.powerButton.center : self.center }
         set {
             self.center = newValue
             superViewRelativePosition = newValue
@@ -87,19 +91,24 @@ class SpreadButton: UIView {
     
     private var superViewRelativePosition: CGPoint!//记录展开按钮相对于super的位置
     
-    private var spreadAngle: CGFloat = flowerSpreadAngle
+    private var spreadAngle: CGFloat = flowerSpreadAngleDefault
     
     
     
-    
-    
-    init?(image: UIImage?, highlightImage: UIImage?) {
-        guard let nonNilImage = image, let nonNilHighlightImage = highlightImage else {
+    init?(image: UIImage?, highlightImage: UIImage?, position: CGPoint) {
+        guard let nonNilImage = image else {
             fatalError("ERROR, image can not be nil")
         }
-        let mainFrame = CGRectMake(0, 0, nonNilImage.size.width, nonNilImage.size.height)
+        
+        let mainFrame = CGRectMake(position.x, position.y, nonNilImage.size.width, nonNilImage.size.height)
         super.init(frame: mainFrame)
-        configureMainButton(nonNilImage, highlightImage: nonNilHighlightImage)
+        
+        //save the mainFrame
+        self.mainFrame = mainFrame
+        self.powerButtonPosition = position
+        
+        configureGesture()
+        configureMainButton(nonNilImage, highlightImage: highlightImage)
         configureCover()
     }
     
@@ -113,12 +122,15 @@ class SpreadButton: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureMainButton(image: UIImage, highlightImage: UIImage) {
+    func configureMainButton(image: UIImage, highlightImage: UIImage?) {
         powerButton = UIButton(frame: CGRectMake(0, 0, image.size.width, image.size.height))
         //初始位置
-        powerButtonPosition = CGPointMake(UIScreen.mainScreen().bounds.width/2, UIScreen.mainScreen().bounds.height - 150)
+        //to do 考虑开放出去
+//        powerButtonPosition = CGPointMake(40, UIScreen.mainScreen().bounds.height - 40)
         powerButton.setBackgroundImage(image, forState: .Normal)
-        powerButton.setBackgroundImage(highlightImage, forState: .Highlighted)
+        if let nonNilhighlightImage = highlightImage {
+            powerButton.setBackgroundImage(nonNilhighlightImage, forState: .Highlighted)
+        }
         powerButton.addTarget(self, action: "tapPowerButton:", forControlEvents: UIControlEvents.TouchUpInside)
         self.addSubview(powerButton)
     }
@@ -134,6 +146,11 @@ class SpreadButton: UIView {
     }
     
     
+    func configureGesture() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "panSpreadButton:")
+        self.addGestureRecognizer(panGestureRecognizer)
+    }
+    
     func tapPowerButton(button: UIButton) {
         isSpread ? closeButton(nil) : spreadButton()
     }
@@ -144,12 +161,35 @@ class SpreadButton: UIView {
         }
     }
     
+    func panSpreadButton(gesture: UIPanGestureRecognizer) {
+        //drag the powerButton
+        if isSpread {
+            return
+        }
+        switch gesture.state {
+        case .Began:
+            animator.removeAllBehaviors()
+        case .Ended:
+            let snapBehavior = UISnapBehavior(item: self, snapToPoint: superViewRelativePosition)
+            snapBehavior.damping = 0.2
+            animator.addBehavior(snapBehavior)
+        default:
+            let location = gesture.locationInView(self.superview)
+            self.center = location
+        }
+    }
+    
     //展开按钮
     func spreadButton() {
         guard subButtons != nil else {
             print("subButton can not be nil")
             return
         }
+        
+        animator.removeAllBehaviors()
+        //todo要不要
+        self.frame = mainFrame
+        
         print("spread")
         isSpread = true
         
@@ -367,6 +407,10 @@ class SpreadButton: UIView {
     
     override func willMoveToSuperview(newSuperview: UIView?) {
         cover.frame = (newSuperview?.bounds)!
+    }
+    
+    override func didMoveToSuperview() {
+        animator = UIDynamicAnimator(referenceView: self.superview!)
     }
     
     func powerButtonRotationAnimate() {
