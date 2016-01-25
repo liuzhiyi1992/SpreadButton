@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "SpreadButton.setSubButtons([UIButton?]) -&gt; ():SpreadButton.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "subButtons">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SpreadButton.spreadSubButton() -&gt; ():SpreadButton.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "powerButton.subviews">
+            </PersistentString>
+            <PersistentString
+               value = "self.subviews">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SpreadButton.closeButton() -&gt; ():SpreadButton.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "powerButton.subviews">
+            </PersistentString>
+            <PersistentString
+               value = "powerButton">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SpreadButton.tapPowerButton(UIButton) -&gt; ():SpreadButton.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "powerButton.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SpreadButton.configureMainButton(UIImage, highlightImage : UIImage) -&gt; ():SpreadButton.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "powerButton.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SpreadButton.spreadButton() -&gt; ():SpreadButton.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "powerButton.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
