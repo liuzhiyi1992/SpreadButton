@@ -55,7 +55,7 @@ class SpreadButton: UIView {
     private static let flowerSpreadAngleDefault: CGFloat = 120.0
     private static let spredaDirectionDefault: SpreadDirection = .SpreadDirectionTop
     private static let spreadRadiusDefault: CGFloat = 100.0
-    private static let coverAlphaDefault: CGFloat = 0.2
+    private static let coverAlphaDefault: CGFloat = 0.1
     private static let animationDuringDefault = 0.2
     
     //During
@@ -90,7 +90,7 @@ class SpreadButton: UIView {
     }
     
     private var subButtons: [SpreadSubButton]?
-    private let defaultCoverColor = UIColor.whiteColor()
+    private let defaultCoverColor = UIColor.blackColor()
     
     private var powerButton: UIButton!
     
