@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         spreadButton?.mode = SpreadMode.SpreadModeSickleSpread
         spreadButton?.direction = SpreadDirection.SpreadDirectionRightUp
         spreadButton?.radius = 120
+        spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeTouchBorder
         
         /*  and you can assign a newValue to change the default
         spreadButton?.animationDuring = 0.2

@@ -27,6 +27,11 @@ enum SpreadMode {
     case SpreadModeFlowerSpread
 }
 
+enum SpreadPositionMode {
+    case SpreadPositionModeFixed
+    case SpreadPositionModeTouchBorder
+}
+
 typealias ButtonWillSpreadBlock = (spreadButton: SpreadButton) -> Void
 typealias ButtonDidSpreadBlock = (spreadButton: SpreadButton) -> Void
 typealias ButtonWillCloseBlock = (spreadButton: SpreadButton) -> Void
@@ -56,6 +61,8 @@ class SpreadButton: UIView {
     private static let spredaDirectionDefault: SpreadDirection = .SpreadDirectionTop
     private static let spreadRadiusDefault: CGFloat = 100.0
     private static let coverAlphaDefault: CGFloat = 0.1
+    private static let touchBorderMarginDefault: CGFloat = 10.0
+    private static let touchBorderAnimationDuringDefault = 0.5
     private static let animationDuringDefault = 0.2
     
     //During
@@ -75,6 +82,7 @@ class SpreadButton: UIView {
     }
     
     var mode: SpreadMode = .SpreadModeSickleSpread
+    var positionMode: SpreadPositionMode = .SpreadPositionModeFixed
     
     var radius: CGFloat = spreadRadiusDefault
     
@@ -88,6 +96,9 @@ class SpreadButton: UIView {
             }
         }
     }
+    
+    var touchBorderMargin: CGFloat = touchBorderMarginDefault
+    
     
     private var subButtons: [SpreadSubButton]?
     private let defaultCoverColor = UIColor.blackColor()
@@ -182,9 +193,38 @@ class SpreadButton: UIView {
         case .Began:
             animator.removeAllBehaviors()
         case .Ended:
-            let snapBehavior = UISnapBehavior(item: self, snapToPoint: superViewRelativePosition)
-            snapBehavior.damping = 0.2
-            animator.addBehavior(snapBehavior)
+            switch positionMode {
+            case .SpreadPositionModeFixed:
+                let snapBehavior = UISnapBehavior(item: self, snapToPoint: superViewRelativePosition)
+                snapBehavior.damping = 0.2
+                animator.addBehavior(snapBehavior)
+            case .SpreadPositionModeTouchBorder:
+                let location = gesture.locationInView(self.superview)
+                var destinationLocation: CGPoint
+                
+                if location.y < 90 {//上面
+                    destinationLocation = CGPointMake(location.x, self.bounds.width/2 + touchBorderMargin)
+                } else if location.y > UIScreen.mainScreen().bounds.height - 90 {//下面
+                    destinationLocation = CGPointMake(location.x, UIScreen.mainScreen().bounds.height - self.bounds.height/2 - touchBorderMargin)
+                } else if location.x > UIScreen.mainScreen().bounds.width/2 {//右边
+                    destinationLocation = CGPointMake(UIScreen.mainScreen().bounds.width - (self.bounds.width/2 + touchBorderMargin), location.y)
+                } else {//左边
+                    destinationLocation = CGPointMake(self.bounds.width/2 + touchBorderMargin, location.y)
+                }
+                
+                let touchBorderAnimation = CABasicAnimation(keyPath: "position")
+                touchBorderAnimation.fromValue = location as? AnyObject
+                touchBorderAnimation.toValue = destinationLocation as? AnyObject
+                touchBorderAnimation.duration = SpreadButton.touchBorderAnimationDuringDefault
+                touchBorderAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                self.layer.addAnimation(touchBorderAnimation, forKey: "touchBorder")
+                
+                CATransaction.begin()
+                CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
+                self.center = destinationLocation
+                CATransaction.commit()
+            }
+            
         default:
             let location = gesture.locationInView(self.superview)
             self.center = location
