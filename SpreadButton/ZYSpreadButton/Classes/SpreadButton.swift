@@ -341,6 +341,7 @@ class SpreadButton: UIView {
                 }
                 continue
             }
+            
             let animationPath = movingPath(btn.layer.position, keyPoints: powerButton.layer.position)
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
             positionAnimation.path = animationPath.CGPath
@@ -352,7 +353,7 @@ class SpreadButton: UIView {
             CATransaction.begin()
             //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
             CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-            btn.layer.position = powerButton.layer.position
+            btn.frame = CGRectMake(0, 0, btn.bounds.width, btn.bounds.height)
             CATransaction.commit()
         }
         

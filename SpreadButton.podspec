@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SpreadButton"
-  s.version      = "0.1.3"
-  s.summary      = "a Button spread its sub path like the flower or sickle"
+  s.version      = "0.1.4"
+  s.summary      = "a Button spread its sub path Button like the flower or sickle if you click it"
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-                  a Button spread its sub button like the flower or sickle
+                  a Button can spread its sub path button like the flower if you click，once again，close.
                   DESC
 
   s.homepage     = "https://github.com/liuzhiyi1992/SpreadButton"
@@ -65,7 +65,7 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  s.platform     = :ios, "7.1"
+  s.platform     = :ios, "8.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
@@ -80,7 +80,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/liuzhiyi1992/SpreadButton.git", :tag => "0.1.3" }
+  s.source       = { :git => "https://github.com/liuzhiyi1992/SpreadButton.git", :tag => "0.1.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "SpreadButton/ZYSpreadButton/Classes/*.{swift}"
+  s.source_files  = "SpreadButton/**/*.{swift}"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -117,7 +117,7 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-   s.framework  = "UIKit"
+  s.framework  = "UIKit"
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   # s.library   = "iconv"
