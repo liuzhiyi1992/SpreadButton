@@ -8,7 +8,6 @@
 
 import UIKit
 
-var KEY_BUTTON_CLICK_BLOCK = "KEY_BUTTON_CLICK_BLOCK"
 typealias ButtonClickBlock = (index: Int, sender: UIButton) -> Void
 
 class SpreadSubButton: UIButton {

@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         
         let spreadButton = SpreadButton(image: UIImage(named: "powerButton"),
                                highlightImage: UIImage(named: "powerButton_highlight"),
-                                     position: CGPointMake(UIScreen.mainScreen().bounds.width/2, UIScreen.mainScreen().bounds.height/2 - 40))
+                                     position: CGPointMake(40, UIScreen.mainScreen().bounds.height - 40))
 
         spreadButton?.setSubButtons([btn1, btn2, btn3, btn4, btn5])
         spreadButton?.mode = SpreadMode.SpreadModeSickleSpread
