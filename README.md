@@ -6,7 +6,7 @@ a Button can spread its sub path button like the flower if you click，once agai
 >个人博客原文: http://zyden.vicp.cc/zyspreadbutton/  
 欢迎转载，请注明出处谢谢  
 
-###Summary  
+##Summary  
 顾名思义，一个会散开的按钮，主体按钮被点击后触发子按钮的展出，选择其中一个功能子按钮，或者点击任意地方，触发子按钮的收缩隐藏。  
 A Button spread its sub path buttons like the flower or sickle(two spread mode) if you click it, once again, close.And you can also change the SpreadPositionMode between FixedMode & TouchBorderMode， while one like the marbleBall fixed on the wall, another one like the AssistiveTouch is iphone。
 
@@ -22,7 +22,7 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 粘连边缘模式下 不同展开模式位置指示图：  
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton-image5.png)
 <br>
-###Custom-made
+##Custom-made
 **Property：**  
 - animationDuring: assign the ‘animationDuring’ can also change ‘animationDuringSpread’ & ‘animationDuringClose’，default is 0.2  
 - coverAlpha  
@@ -47,7 +47,7 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 - private static let touchBorderAnimationDuringDefault = 0.5  
 - private static let animationDuringDefault = 0.2
 
-###Installation  
+##Installation  
 ####Cocoapods   
 ```
 pod 'SpreadButton'
@@ -56,7 +56,7 @@ pod 'SpreadButton'
 let your project include SpreadButton.swift & SpreadSubButton.swift  
 oc项目需要在bridge头文件里import他们
 
-###Usage
+##Usage
 以swift为例子：  
 1.通过SpreadButton的构造方法来创建一个SpreadButton对象，传入主体按钮的背景图片，高亮图片(非必须)，还有位置，如果传入的UIImage为nil，放心，编译时就会报错
 ```swift
@@ -116,5 +116,5 @@ if spreadButton != nil {
 ```
 
 <br>
-###License  
+##License  
 SpreadButton is released under the MIT license. See LICENSE for details.
