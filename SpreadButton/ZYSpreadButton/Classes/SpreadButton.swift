@@ -196,7 +196,7 @@ class SpreadButton: UIView {
             switch positionMode {
             case .SpreadPositionModeFixed:
                 let snapBehavior = UISnapBehavior(item: self, snapToPoint: superViewRelativePosition)
-                snapBehavior.damping = 0.2
+                snapBehavior.damping = 0.5
                 animator.addBehavior(snapBehavior)
             case .SpreadPositionModeTouchBorder:
                 let location = gesture.locationInView(self.superview)

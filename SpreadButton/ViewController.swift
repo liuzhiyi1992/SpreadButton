@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    
+    var spreadButton: SpreadButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,12 +40,13 @@ class ViewController: UIViewController {
         let spreadButton = SpreadButton(image: UIImage(named: "powerButton"),
                                highlightImage: UIImage(named: "powerButton_highlight"),
                                      position: CGPointMake(40, UIScreen.mainScreen().bounds.height - 40))
-
+        self.spreadButton = spreadButton
+        
         spreadButton?.setSubButtons([btn1, btn2, btn3, btn4, btn5])
         spreadButton?.mode = SpreadMode.SpreadModeSickleSpread
         spreadButton?.direction = SpreadDirection.SpreadDirectionRightUp
         spreadButton?.radius = 120
-        spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeTouchBorder
+        spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeFixed
         
         /*  and you can assign a newValue to change the default
         spreadButton?.animationDuring = 0.2
@@ -50,7 +54,9 @@ class ViewController: UIViewController {
         spreadButton?.radius = 180
         spreadButton?.coverAlpha = 0.3
         spreadButton?.coverColor = UIColor.yellowColor()
+        spreadButton?.touchBorderMargin = 10.0
         */
+        
         
         //you can assign the Blocks like this
         spreadButton?.buttonWillSpreadBlock = { print(CGRectGetMaxY($0.frame)) }
@@ -60,6 +66,16 @@ class ViewController: UIViewController {
         
         if spreadButton != nil {
             self.view.addSubview(spreadButton!)
+        }
+    }
+    
+    @IBAction func changePositionMode(sender: AnyObject) {
+        if spreadButton?.positionMode == SpreadPositionMode.SpreadPositionModeFixed {
+            spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeTouchBorder
+            sender.setTitle("ModeTouchBorder", forState: .Normal)
+        } else {
+            spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeFixed
+            sender.setTitle("ModeFixed", forState: .Normal)
         }
     }
     
