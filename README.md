@@ -12,7 +12,11 @@ a Button can spread its sub path button like the flower if you click，once agai
 ###Summary  
 顾名思义，一个会散开的按钮，主体按钮被点击后触发子按钮的展出，选择其中一个功能子按钮，或者点击任意地方，触发子按钮的收缩隐藏。  
 A Button spread its sub path buttons like the flower or sickle(two spread mode) if you click it, once again, close.And you can also change the SpreadPositionMode between FixedMode & TouchBorderMode， while one like the marbleBall fixed on the wall, another one like the AssistiveTouch is iphone。
-![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BAgif5.gif)
+
+//![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BAgif5.gif)
+![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart1.gif)
+![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart2.gif)
+
 两种展开模式(SpreadMode)：镰刀模式 & 花朵模式  
 
 <br>
