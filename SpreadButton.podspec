@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SpreadButton"
-  s.version      = "0.1.4"
+  s.version      = "0.1.5"
   s.summary      = "a Button spread its sub path Button like the flower or sickle if you click it"
 
   # This description is used to generate tags and improve search results.
@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
                   a Button can spread its sub path button like the flower if you click，once again，close.
+                  it have two position mode fixedMode like a nail & touchBorderMode like the AssistiveTouch is iphone.
                   DESC
 
   s.homepage     = "https://github.com/liuzhiyi1992/SpreadButton"
@@ -80,7 +81,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/liuzhiyi1992/SpreadButton.git", :tag => "0.1.4" }
+  s.source       = { :git => "https://github.com/liuzhiyi1992/SpreadButton.git", :tag => "0.1.5" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
