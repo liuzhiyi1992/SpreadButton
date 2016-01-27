@@ -213,6 +213,8 @@ class SpreadButton: UIView {
                 }
                 
                 let touchBorderAnimation = CABasicAnimation(keyPath: "position")
+                touchBorderAnimation.delegate = self
+                touchBorderAnimation.removedOnCompletion = false
                 touchBorderAnimation.fromValue = location as? AnyObject
                 touchBorderAnimation.toValue = destinationLocation as? AnyObject
                 touchBorderAnimation.duration = SpreadButton.touchBorderAnimationDuringDefault
@@ -459,6 +461,43 @@ class SpreadButton: UIView {
         return path
     }
     
+    func changeSpreadDirection() {
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        let centerAreaWidth = screenWidth - 2 * radius
+        let location = self.center
+        //改变Spreading的位置
+        superViewRelativePosition = location
+        
+        if location.x < screenWidth/2 - centerAreaWidth/2 {//左边
+            switch location.y {
+            case 0..<radius:
+                direction = .SpreadDirectionRightDown
+            case radius..<(screenHeight - radius):
+                direction = .SpreadDirectionRight
+            case (screenHeight - radius)..<screenHeight:
+                direction = .SpreadDirectionRightUp
+            default: break
+            }
+        } else if location.x > screenWidth/2 + centerAreaWidth/2 {//右边
+            switch location.y {
+            case 0..<radius:
+                direction = .SpreadDirectionLeftDown
+            case radius..<(screenHeight - radius):
+                direction = .SpreadDirectionLeft
+            case (screenHeight - radius)..<screenHeight:
+                direction = .SpreadDirectionLeftUp
+            default: break
+            }
+        } else {//中间
+            if location.y < screenHeight/2 {
+                direction = .SpreadDirectionBottom
+            } else {
+                direction = .SpreadDirectionTop
+            }
+        }
+    }
+    
     override func willMoveToSuperview(newSuperview: UIView?) {
         cover.frame = (newSuperview?.bounds)!
     }
@@ -488,6 +527,13 @@ class SpreadButton: UIView {
         let index = subButtons?.indexOf(sender)
         if let nonNilIndex = index {
             sender.clickedBlock?(index:nonNilIndex, sender: sender)
+        }
+    }
+    
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        let touchBorderAnim = self.layer.animationForKey("touchBorder")
+        if touchBorderAnim == anim {
+            changeSpreadDirection()
         }
     }
     
