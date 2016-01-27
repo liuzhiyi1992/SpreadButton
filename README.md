@@ -1,5 +1,6 @@
 # SpreadButton
 a Button can spread its sub path button like the flower if you click，once again，close.  
+0.1.5更新粘连边缘模式(home键模式)
 
 <br>
 >个人博客原文: http://zyden.vicp.cc/zyspreadbutton/  
