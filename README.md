@@ -12,11 +12,11 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart1.gif)
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart2.gif)  
-两种展开模式(SpreadMode)：镰刀模式 & 花朵模式  
+**两种展开模式(SpreadMode)：**镰刀模式 & 花朵模式  
 
 <br>
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E5%8F%8CPosition%E6%A8%A1%E5%BC%8F%E6%BC%94%E7%A4%BA.gif)  
-==两种位置模式==(SpreadPositionMode)：锁定模式 & 粘连边缘模式，在粘连边缘模式下，根据主体按钮的位置，会实时更新展开模式  
+**两种位置模式(SpreadPositionMode)：**锁定模式 & 粘连边缘模式，在粘连边缘模式下，根据主体按钮的位置，会实时更新展开模式  
 
 <br>
 粘连边缘模式下 不同展开模式位置指示图：  
