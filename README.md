@@ -26,7 +26,18 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 
 ###you can play the demo online in [appetize.io](https://appetize.io/app/dqfahewadr8g08ghdvxffqe6j4?device=iphone5s&scale=75&orientation=portrait&osVersion=9.2)  
 
-<br>
+<br>  
+
+##Installation  
+####Cocoapods   
+```
+pod 'SpreadButton'
+```
+####Fork form my github
+let your project include SpreadButton.swift & SpreadSubButton.swift  
+oc项目需要在bridge头文件里import他们  
+
+
 ##Custom-made
 **Property：**  
 - animationDuring: assign the ‘animationDuring’ can also change ‘animationDuringSpread’ & ‘animationDuringClose’，default is 0.2  
@@ -51,15 +62,6 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 - private static let touchBorderMarginDefault: CGFloat = 10.0  
 - private static let touchBorderAnimationDuringDefault = 0.5  
 - private static let animationDuringDefault = 0.2
-
-##Installation  
-####Cocoapods   
-```
-pod 'SpreadButton'
-```
-####Fork form my github
-let your project include SpreadButton.swift & SpreadSubButton.swift  
-oc项目需要在bridge头文件里import他们
 
 ##Usage
 以swift为例子：  
