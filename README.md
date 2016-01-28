@@ -2,6 +2,7 @@
 a Button can spread its sub path button like the flower if you click，once again，close.  
 一个当你点击它后会像花或者镰刀一样展开的按钮，迎来0.1.5版本后，你也可以把它当iphone里的AssistiveTouch.
 **---0.1.5更新粘连边缘模式(home键模式)---**
+![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart1.gif)  
 
 <br>
 >个人博客原文: http://zyden.vicp.cc/zyspreadbutton/  
@@ -12,7 +13,6 @@ Demo github地址: https://github.com/liuzhiyi1992/SpreadButton
 顾名思义，一个会散开的按钮，主体按钮被点击后触发子按钮的展出，选择其中一个功能子按钮，或者点击任意地方，触发子按钮的收缩隐藏。 SpreadButton设计有2种展开方式，2种位置模式，8种展开方向。  
 A Button spread its sub path buttons like the flower or sickle(two spread mode) if you click it, once again, close.And you can also change the SpreadPositionMode between FixedMode & TouchBorderMode， while one like the marbleBall fixed on the wall, another one like the AssistiveTouch is iphone。
 
-![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart1.gif)
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart2.gif)  
 **两种展开模式(SpreadMode)：**镰刀模式 & 花朵模式  
 
