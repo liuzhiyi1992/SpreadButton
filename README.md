@@ -37,7 +37,7 @@ pod 'SpreadButton'
 let your project include SpreadButton.swift & SpreadSubButton.swift  
 oc项目需要在bridge头文件里import他们  
 
-
+<br>  
 ##Custom-made
 **Property：**  
 - animationDuring: assign the ‘animationDuring’ can also change ‘animationDuringSpread’ & ‘animationDuringClose’，default is 0.2  
