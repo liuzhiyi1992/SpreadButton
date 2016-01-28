@@ -22,7 +22,10 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 
 <br>
 粘连边缘模式下 不同展开模式位置指示图：  
-![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton-image5.png)
+![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton-image5.png)  
+
+###you can play the demo online in [appetize.io](https://appetize.io/app/dqfahewadr8g08ghdvxffqe6j4?device=iphone5s&scale=75&orientation=portrait&osVersion=9.2)  
+
 <br>
 ##Custom-made
 **Property：**  
