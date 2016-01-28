@@ -9,12 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var changePositionModeButton: UIButton!
     
     var spreadButton: SpreadButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureButtonCorner()
         
         let btn1 = SpreadSubButton(backgroundImage: UIImage(named: "clock"), highlightImage: UIImage(named: "clock_highlight")) { (index, sender) -> Void in
             print("first")
@@ -72,11 +75,16 @@ class ViewController: UIViewController {
     @IBAction func changePositionMode(sender: AnyObject) {
         if spreadButton?.positionMode == SpreadPositionMode.SpreadPositionModeFixed {
             spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeTouchBorder
-            sender.setTitle("ModeTouchBorder", forState: .Normal)
+            sender.setTitle(" ModeTouchBorder ", forState: .Normal)
         } else {
             spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeFixed
-            sender.setTitle("ModeFixed", forState: .Normal)
+            sender.setTitle(" ModeFixed ", forState: .Normal)
         }
+    }
+    
+    func configureButtonCorner() {
+        changePositionModeButton.layer.cornerRadius = changePositionModeButton.bounds.height/2
+        changePositionModeButton.layer.masksToBounds = true
     }
     
     override func didReceiveMemoryWarning() {
