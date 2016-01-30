@@ -2,7 +2,7 @@
 A Button can spread its sub path button like the flower if you click，once again，close.  
 一个当你点击它后会像花或者镰刀一样展开的按钮，迎来0.1.5版本后，你可以切换一种位置模式，把它当iphone里的AssistiveTouch.  
 **---0.1.5更新粘连边缘模式(home键模式)---**  
-![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BAgif6.gif)  
+![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/%E9%80%81%E6%99%BA1.gif)  
 
 <br>
 >个人博客原文: http://zyden.vicp.cc/zyspreadbutton/  
