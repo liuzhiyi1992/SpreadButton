@@ -1,5 +1,6 @@
 # SpreadButton  
-![](https://github.com/liuzhiyi1992/SpreadButton/blob/master/SpreadButton/SvgIcon/pod-v0.1.5-blue.svg)  
+![](https://raw.githubusercontent.com/liuzhiyi1992/SpreadButton/master/SpreadButton/SvgIcon/pod-v0.1.5-blue.svg)
+![](https://raw.githubusercontent.com/liuzhiyi1992/SpreadButton/master/SpreadButton/SvgIcon/license-MIT-brightgreen.svg)
 
 A Button can spread its sub path button like the flower if you click，once again，close.  
 一个当你点击它后会像花或者镰刀一样展开的按钮，迎来0.1.5版本后，你可以切换一种位置模式，把它当iphone里的AssistiveTouch.  
