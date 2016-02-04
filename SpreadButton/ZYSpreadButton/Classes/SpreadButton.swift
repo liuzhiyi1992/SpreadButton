@@ -325,7 +325,7 @@ class SpreadButton: UIView {
                             animationPath = movingPath(btn.layer.position, keyPoints: startOutSidePoint)
                             positionAnimation.keyTimes = [0.0, 0.2]
                         } else if btnIndex != ((subButtons?.count)! - 1) {
-                            animationPath = movingPath(btn.layer.position, endPoint: startOutSidePoint, startAngle: startAngle/180*π, endAngle: angle/180*π, center: btn.layer.position, shock: false)
+                            animationPath = movingPath(btn.layer.position, endPoint: startOutSidePoint, startAngle: startAngle/180*π, endAngle: angle/180*π, center: btn.layer.position)
                             positionAnimation.keyTimes = [0.0, 0.2,    0.3, 1.0]
                         }
                         else {
@@ -445,7 +445,7 @@ class SpreadButton: UIView {
         return path
     }
     
-    func movingPath(startPoint: CGPoint, endPoint: CGPoint, startAngle: CGFloat, endAngle: CGFloat, center: CGPoint, shock: Bool) -> UIBezierPath {
+    func movingPath(startPoint: CGPoint, endPoint: CGPoint, startAngle: CGFloat, endAngle: CGFloat, center: CGPoint, shock: Bool = false) -> UIBezierPath {
         let path = UIBezierPath()
         path.moveToPoint(startPoint)
         path.addLineToPoint(endPoint)
