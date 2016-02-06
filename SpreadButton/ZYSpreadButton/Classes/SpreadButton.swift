@@ -316,7 +316,7 @@ class SpreadButton: UIView {
             switch mode {
                 case .SpreadModeSickleSpread:
                     if direction == .SpreadDirectionTop || direction == .SpreadDirectionBottom || direction == .SpreadDirectionLeft || direction == .SpreadDirectionRight {
-                        //---It does not provide SickleSpread in this four directions---
+                        //---It does not provide SickleSpread in those four directions---
                         animationPath = movingPath(btn.layer.position, keyPoints: shockOutsidePoint, shockInsidePoint, outsidePoint)
                         positionAnimation.keyTimes = [0.0, 0.8, 0.93, 1.0]
                         positionAnimation.duration = animationDuringSpread
@@ -387,6 +387,7 @@ class SpreadButton: UIView {
             let animationPath = movingPath(btn.layer.position, keyPoints: powerButton.layer.position)
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
             positionAnimation.path = animationPath.CGPath
+            //TODO这里错了。。times?
             positionAnimation.values = [0.0, 1.0]
             positionAnimation.duration = animationDuringClose
             positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
