@@ -8,6 +8,13 @@
 
 #import "ZYSpreadButton.h"
 
+@interface ZYSpreadButton ()
+
+@property (strong, nonatomic) UIDynamicAnimator *animator;
+
+@end
+
+
 @implementation ZYSpreadButton
 
 - (instancetype)initWithBackgroundImage:(UIImage *)backgroundImage highlightImage:(UIImage *)highlightImage position:(CGPoint)position {
@@ -66,7 +73,62 @@
 }
 
 - (void)panSpreadButton:(UIPanGestureRecognizer *)gesture {
-    //todo UISnapBehavior & touchBorder Animation & panMove
+    //UISnapBehavior & touchBorder Animation & panMove
+    if (_isSpread) {
+        return;
+    }
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:
+            [_animator removeAllBehaviors];
+            break;
+        case UIGestureRecognizerStateEnded:
+            switch (_positionMode) {
+                case SpreadPositionModeFixed:
+                {
+                    UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:self snapToPoint:_superViewRelativePosition];
+                    snapBehavior.damping = 0.5;
+                    [_animator addBehavior:snapBehavior];
+                    break;
+                }
+                case SpreadPositionModeTouchBorder:
+                {
+                    CGPoint location = [gesture locationInView:self.superview];
+                    CGPoint destinationLocation;
+                    
+                    if (location.y < 90) {//上面区域
+                        destinationLocation = CGPointMake(location.x, self.bounds.size.width/2 + _touchBorderMargin);
+                    } else if (location.y > [UIScreen mainScreen].bounds.size.height - 90) {//下面
+                        destinationLocation = CGPointMake(location.x, [UIScreen mainScreen].bounds.size.height - self.bounds.size.height/2 - _touchBorderMargin);
+                    } else if (location.x > [UIScreen mainScreen].bounds.size.width/2) {//右边
+                        destinationLocation = CGPointMake([UIScreen mainScreen].bounds.size.width - (self.bounds.size.width/2 + _touchBorderMargin), location.y);
+                    } else {//左边
+                        destinationLocation = CGPointMake(self.bounds.size.width/2 + _touchBorderMargin, location.y);
+                    }
+                    
+                    CABasicAnimation *touchBorderAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+                    touchBorderAnimation.delegate = self;
+                    touchBorderAnimation.removedOnCompletion = NO;//动画完成后不去除Animation
+                    touchBorderAnimation.fromValue = [NSValue valueWithCGPoint:location];
+                    touchBorderAnimation.toValue = [NSValue valueWithCGPoint:destinationLocation];
+                    touchBorderAnimation.duration = ANIMATION_DURING_TOUCHBORDER_DEFAULT;
+                    touchBorderAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                    [self.layer addAnimation:touchBorderAnimation forKey:@"touchBorder"];
+                    
+                    [CATransaction begin];
+                    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+                    self.layer.position = destinationLocation;
+                    [CATransaction commit];
+                    break;
+                }
+            }
+            break;
+        default:
+        {
+            CGPoint location = [gesture locationInView:self.superview];
+            self.center = location;
+            break;
+        }
+    }
 }
 
 - (void)tapCover {
@@ -114,12 +176,11 @@
     
     //Block
     self.buttonDidSpreadBlock(self);
-    
 }
 
 - (void)spreadSubButton {
     CGFloat subButtonCrackAngle = _spreadAngle / (_subButtons.count - 1);
-    CGFloat startSpace = 180 - (_spreadAngle) / 2;
+    CGFloat startSpace = (180 - _spreadAngle) / 2;
     CGFloat angle;
     switch (_direction) {
         case SpreadDirectionTop:
@@ -344,13 +405,61 @@
     return path;
 }
 
+- (void)changeSpreadDirection {
+    //TODO 写到这里
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat centerAreaWidth = screenWidth - 2*_radius;
+    CGPoint location = self.center;
+    
+    //改变下次Spreading的位置
+    self.superViewRelativePosition = location;
+    
+    if (location.x < (screenWidth - centerAreaWidth)/2) {//左边区域
+        NSLog(@"左边");
+        if (0 <= location.y && location.y < _radius) {//上
+            self.direction = SpreadDirectionRightDown;
+        } else if (_radius <= location.y && location.y < (screenHeight - _radius)) {//中
+            self.direction = SpreadDirectionRight;
+        } else {//下
+            self.direction = SpreadDirectionRightUp;
+        }
+        NSLog(@"%d", self.direction);
+    } else if (location.x > screenWidth/2 + centerAreaWidth/2) {//右边区域
+        NSLog(@"右边");
+        if (0 <= location.y && location.y < _radius) {
+            self.direction = SpreadDirectionLeftDown;
+            NSLog(@"top");
+        } else if (_radius <= location.y && location.y < (screenHeight - _radius)) {
+            self.direction = SpreadDirectionLeft;
+            NSLog(@"left");
+        } else {
+            self.direction = SpreadDirectionLeftUp;
+            NSLog(@"bottom");
+        }
+    } else {//中间区域
+        NSLog(@"中间");
+        if (location.y < screenHeight/2) {
+            self.direction = SpreadDirectionBottom;
+        } else {
+            self.direction = SpreadDirectionTop;
+        }
+    }
+}
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     _cover.frame = newSuperview.bounds;
 }
 
 - (void)didMoveToSuperview {
-    //todo 初始化物理引擎
-    
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.superview];
+}
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
+    CAAnimation *touchBorderAnim = [self.layer animationForKey:@"touchBorder"];
+    if (touchBorderAnim == anim) {
+        [self changeSpreadDirection];
+    }
 }
 
 - (void)setSubButtons:(NSArray *)subButtons {
@@ -369,7 +478,6 @@
         _spreadAngle = SICKLE_SPREAD_ANGLE_DEFAULT;
     }
 }
-
 
 
 

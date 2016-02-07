@@ -134,12 +134,27 @@ class ViewController: UIViewController {
     }
     
     @IBAction func changePositionMode(sender: AnyObject) {
-        if spreadButton?.positionMode == SpreadPositionMode.SpreadPositionModeFixed {
-            spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeTouchBorder
-            sender.setTitle(" ModeTouchBorder ", forState: .Normal)
-        } else {
-            spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeFixed
-            sender.setTitle(" ModeFixed ", forState: .Normal)
+        
+        //display with Swift Code
+        if spreadButton != nil {
+            if spreadButton?.positionMode == SpreadPositionMode.SpreadPositionModeFixed {
+                spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeTouchBorder
+                sender.setTitle(" ModeTouchBorder ", forState: .Normal)
+            } else {
+                spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeFixed
+                sender.setTitle(" ModeFixed ", forState: .Normal)
+            }
+        }
+        
+        //display with OC Code
+        if zySpreadButton != nil {
+            if zySpreadButton.positionMode == SpreadPositionModeFixed {
+                zySpreadButton.positionMode = SpreadPositionModeTouchBorder
+                sender.setTitle(" ModeTouchBorder ", forState: .Normal)
+            } else {
+                zySpreadButton.positionMode = SpreadPositionModeFixed
+                sender.setTitle(" ModeFixed ", forState: .Normal)
+            }
         }
     }
     

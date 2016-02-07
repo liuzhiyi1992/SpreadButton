@@ -48,6 +48,7 @@ typedef enum {
 #define TOUCHBORDER_MARGIN_DEFAULT 10.0f
 #define TOUCHBORDER_ANIMATION_DURING_DEFAULT 0.5f
 #define ANIMATION_DURING_DEFAULT 0.2f
+#define ANIMATION_DURING_TOUCHBORDER_DEFAULT 0.5f
 #define COVER_COLOR_DEFAULT [UIColor blackColor]
 
 @property (assign, nonatomic) SpreadMode mode;
@@ -66,7 +67,6 @@ typedef enum {
 @property (strong, nonatomic) NSArray *subButtons;
 @property (strong, nonatomic) UIButton *powerButton;
 @property (strong, nonatomic) UIView *cover;
-@property (strong, nonatomic) UIDynamicAnimator *animator;
 @property (assign, nonatomic) CGRect mainFrame;
 
 @property (copy, nonatomic) ButtonWillSpreadBlock buttonWillSpreadBlock;
