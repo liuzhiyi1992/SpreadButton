@@ -7,25 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4801DDB11C5659B2000D83A5 /* SpreadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4801DDAE1C5659B2000D83A5 /* SpreadButton.swift */; };
-		4801DDB21C5659B2000D83A5 /* SpreadSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4801DDAF1C5659B2000D83A5 /* SpreadSubButton.swift */; };
-		485B69F71C63021E00F04219 /* ZYSpreadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B69F61C63021E00F04219 /* ZYSpreadButton.m */; };
-		485B69FA1C63026B00F04219 /* ZYSpreadSubButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 485B69F91C63026B00F04219 /* ZYSpreadSubButton.m */; };
 		488D7AD01C4CDD59007957F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488D7ACF1C4CDD59007957F0 /* AppDelegate.swift */; };
 		488D7AD21C4CDD59007957F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 488D7AD11C4CDD59007957F0 /* ViewController.swift */; };
 		488D7AD51C4CDD59007957F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD31C4CDD59007957F0 /* Main.storyboard */; };
 		488D7AD71C4CDD59007957F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD61C4CDD59007957F0 /* Assets.xcassets */; };
 		488D7ADA1C4CDD59007957F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 488D7AD81C4CDD59007957F0 /* LaunchScreen.storyboard */; };
+		48FE17FC1C68CCE6008857BE /* ZYSpreadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FE17F51C68CCE6008857BE /* ZYSpreadButton.m */; };
+		48FE17FD1C68CCE6008857BE /* ZYSpreadSubButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 48FE17F71C68CCE6008857BE /* ZYSpreadSubButton.m */; };
+		48FE17FE1C68CCE6008857BE /* SpreadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FE17FA1C68CCE6008857BE /* SpreadButton.swift */; };
+		48FE17FF1C68CCE6008857BE /* SpreadSubButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FE17FB1C68CCE6008857BE /* SpreadSubButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4801DDAE1C5659B2000D83A5 /* SpreadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadButton.swift; sourceTree = "<group>"; };
-		4801DDAF1C5659B2000D83A5 /* SpreadSubButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSubButton.swift; sourceTree = "<group>"; };
-		485B69F41C63021D00F04219 /* SpreadButton-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpreadButton-Bridging-Header.h"; sourceTree = "<group>"; };
-		485B69F51C63021D00F04219 /* ZYSpreadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSpreadButton.h; sourceTree = "<group>"; };
-		485B69F61C63021E00F04219 /* ZYSpreadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSpreadButton.m; sourceTree = "<group>"; };
-		485B69F81C63026B00F04219 /* ZYSpreadSubButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSpreadSubButton.h; sourceTree = "<group>"; };
-		485B69F91C63026B00F04219 /* ZYSpreadSubButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSpreadSubButton.m; sourceTree = "<group>"; };
 		488D7ACC1C4CDD59007957F0 /* SpreadButton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpreadButton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		488D7ACF1C4CDD59007957F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		488D7AD11C4CDD59007957F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -33,6 +26,13 @@
 		488D7AD61C4CDD59007957F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		488D7AD91C4CDD59007957F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		488D7ADB1C4CDD59007957F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		48FE17F41C68CCE6008857BE /* ZYSpreadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSpreadButton.h; sourceTree = "<group>"; };
+		48FE17F51C68CCE6008857BE /* ZYSpreadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSpreadButton.m; sourceTree = "<group>"; };
+		48FE17F61C68CCE6008857BE /* ZYSpreadSubButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSpreadSubButton.h; sourceTree = "<group>"; };
+		48FE17F71C68CCE6008857BE /* ZYSpreadSubButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSpreadSubButton.m; sourceTree = "<group>"; };
+		48FE17FA1C68CCE6008857BE /* SpreadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadButton.swift; sourceTree = "<group>"; };
+		48FE17FB1C68CCE6008857BE /* SpreadSubButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpreadSubButton.swift; sourceTree = "<group>"; };
+		48FE18001C68CD2C008857BE /* SpreadButton-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpreadButton-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,13 +57,9 @@
 		4801DDAD1C5659B2000D83A5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4801DDAE1C5659B2000D83A5 /* SpreadButton.swift */,
-				4801DDAF1C5659B2000D83A5 /* SpreadSubButton.swift */,
-				485B69F51C63021D00F04219 /* ZYSpreadButton.h */,
-				485B69F61C63021E00F04219 /* ZYSpreadButton.m */,
-				485B69F81C63026B00F04219 /* ZYSpreadSubButton.h */,
-				485B69F91C63026B00F04219 /* ZYSpreadSubButton.m */,
-				485B69F41C63021D00F04219 /* SpreadButton-Bridging-Header.h */,
+				48FE18001C68CD2C008857BE /* SpreadButton-Bridging-Header.h */,
+				48FE17F31C68CCE6008857BE /* objc */,
+				48FE17F81C68CCE6008857BE /* swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -96,6 +92,26 @@
 				488D7ADB1C4CDD59007957F0 /* Info.plist */,
 			);
 			path = SpreadButton;
+			sourceTree = "<group>";
+		};
+		48FE17F31C68CCE6008857BE /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				48FE17F41C68CCE6008857BE /* ZYSpreadButton.h */,
+				48FE17F51C68CCE6008857BE /* ZYSpreadButton.m */,
+				48FE17F61C68CCE6008857BE /* ZYSpreadSubButton.h */,
+				48FE17F71C68CCE6008857BE /* ZYSpreadSubButton.m */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
+		48FE17F81C68CCE6008857BE /* swift */ = {
+			isa = PBXGroup;
+			children = (
+				48FE17FA1C68CCE6008857BE /* SpreadButton.swift */,
+				48FE17FB1C68CCE6008857BE /* SpreadSubButton.swift */,
+			);
+			path = swift;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,12 +185,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				485B69F71C63021E00F04219 /* ZYSpreadButton.m in Sources */,
 				488D7AD21C4CDD59007957F0 /* ViewController.swift in Sources */,
-				4801DDB21C5659B2000D83A5 /* SpreadSubButton.swift in Sources */,
 				488D7AD01C4CDD59007957F0 /* AppDelegate.swift in Sources */,
-				4801DDB11C5659B2000D83A5 /* SpreadButton.swift in Sources */,
-				485B69FA1C63026B00F04219 /* ZYSpreadSubButton.m in Sources */,
+				48FE17FE1C68CCE6008857BE /* SpreadButton.swift in Sources */,
+				48FE17FF1C68CCE6008857BE /* SpreadSubButton.swift in Sources */,
+				48FE17FD1C68CCE6008857BE /* ZYSpreadSubButton.m in Sources */,
+				48FE17FC1C68CCE6008857BE /* ZYSpreadButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
