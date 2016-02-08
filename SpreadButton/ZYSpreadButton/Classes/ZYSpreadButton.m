@@ -154,6 +154,7 @@
     }
     //Block
     self.buttonWillSpreadBlock(self);
+    [self.animator removeAllBehaviors];
     self.isSpread = YES;
     
     //改变frame,充满整个superView
