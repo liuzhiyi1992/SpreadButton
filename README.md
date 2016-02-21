@@ -127,6 +127,11 @@ if spreadButton != nil {
 }
 ```
 
+##Relation  
+[@liuzhiyi1992](https://github.com/liuzhiyi1992) on Github
+[SpreadButton](http://zyden.vicp.cc/zyspreadbutton/) in my Blog
+  
+  
 <br>
 ##License  
 SpreadButton is released under the MIT license. See LICENSE for details.
