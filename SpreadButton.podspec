@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SpreadButton"
-  s.version      = "0.1.5"
+  s.version      = "0.1.6"
   s.summary      = "a Button spread its sub path Button like the flower or sickle if you click it"
 
   # This description is used to generate tags and improve search results.
@@ -81,7 +81,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/liuzhiyi1992/SpreadButton.git", :tag => "0.1.5" }
+  s.source       = { :git => "https://github.com/liuzhiyi1992/SpreadButton.git", :tag => "0.1.6" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -92,7 +92,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "SpreadButton/**/*.{swift}"
+  s.source_files  = "SpreadButton/**/*.{h,m,swift}"
   # s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
