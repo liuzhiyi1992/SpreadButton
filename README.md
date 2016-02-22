@@ -43,8 +43,8 @@ Demo github地址: https://github.com/liuzhiyi1992/SpreadButton
 pod 'SpreadButton'
 ```
 ####Fork form my github
-let your project include SpreadButton.swift & SpreadSubButton.swift  
-oc项目需要在bridge头文件里import他们  
+you can select SpreadButton coded by objc or swift in directory corresponding  
+目前已支持oc和swift两种语言，可以根据需要在相应的文件夹中找到  
 
 <br>  
 ##Custom-made
