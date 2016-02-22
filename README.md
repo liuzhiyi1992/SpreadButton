@@ -33,8 +33,8 @@ Demo github地址: https://github.com/liuzhiyi1992/SpreadButton
 <br>
 
 ##Contact  
-###you can play the demo online in [appetize.io](https://appetize.io/app/dqfahewadr8g08ghdvxffqe6j4?device=iphone5s&scale=75&orientation=portrait&osVersion=9.2)  
-
+####you can play the demo online in [appetize.io](https://appetize.io/app/dqfahewadr8g08ghdvxffqe6j4?device=iphone5s&scale=75&orientation=portrait&osVersion=9.2)    
+####在这里可以在线试玩这个应用
 <br>  
 
 ##Installation  
@@ -42,7 +42,7 @@ Demo github地址: https://github.com/liuzhiyi1992/SpreadButton
 ```
 pod 'SpreadButton'
 ```
-####Fork form my github
+####Fork from my github
 you can select SpreadButton coded by objc or swift in directory corresponding  
 目前已支持oc和swift两种语言，可以根据需要在相应的文件夹中找到  
 
