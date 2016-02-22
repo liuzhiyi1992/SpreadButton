@@ -1,20 +1,22 @@
 # SpreadButton  
 ![](https://img.shields.io/badge/pod-v0.1.5-blue.svg)
-![](https://img.shields.io/badge/license-MIT-brightgreen.svg)
+![](https://img.shields.io/badge/license-MIT-brightgreen.svg)  
 
-A Button can spread its sub path button like the flower if you click，once again，close.  
-一个当你点击它后会像花或者镰刀一样展开的按钮，迎来0.1.5版本后，你可以切换一种位置模式，把它当iphone里的AssistiveTouch.  
-**---0.1.5更新粘连边缘模式(home键模式)---**  
+##Summary:  
+A Button spread its sub path buttons like the flower or sickle(two spread mode) if you click it, once again, close.And you can also change the SpreadPositionMode between FixedMode & TouchBorderMode， while one like the marbleBall fixed on the wall, another one like the AssistiveTouch is iphone。  
+顾名思义，一个会散开的按钮，主体按钮被点击后触发子按钮的展出，选择其中一个功能子按钮，或者点击任意地方，触发子按钮的收缩隐藏。 SpreadButton设计有2种展开方式，2种位置模式，8种展开方向。   
+
+###近期更新：  
+0.1.6:  更新 objective-C 版
+0.1.5:  SpreadPositionModeFixed(you can use it like the IOS AssistiveTouch but in the app)(应用内的AssistiveTouch)
+0.1.4： 
+
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/%E9%80%81%E6%99%BA1.gif)  
 
 <br>
 >个人博客原文: http://zyden.vicp.cc/zyspreadbutton/  
 Demo github地址: https://github.com/liuzhiyi1992/SpreadButton  
 欢迎转载，请注明出处谢谢  
-
-##Summary  
-顾名思义，一个会散开的按钮，主体按钮被点击后触发子按钮的展出，选择其中一个功能子按钮，或者点击任意地方，触发子按钮的收缩隐藏。 SpreadButton设计有2种展开方式，2种位置模式，8种展开方向。  
-A Button spread its sub path buttons like the flower or sickle(two spread mode) if you click it, once again, close.And you can also change the SpreadPositionMode between FixedMode & TouchBorderMode， while one like the marbleBall fixed on the wall, another one like the AssistiveTouch is iphone。  
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart1.gif)
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart2.gif)  
@@ -24,9 +26,6 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E5%8F%8CPosition%E6%A8%A1%E5%BC%8F%E6%BC%94%E7%A4%BA.gif)  
 **两种位置模式(SpreadPositionMode)：**锁定模式 & 粘连边缘模式，在粘连边缘模式下，根据主体按钮的位置，会实时更新展开模式  
 
-<br>
-粘连边缘模式下 不同展开模式位置指示图：  
-![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton-image5.png)  
 
 ##Contact  
 ###you can play the demo online in [appetize.io](https://appetize.io/app/dqfahewadr8g08ghdvxffqe6j4?device=iphone5s&scale=75&orientation=portrait&osVersion=9.2)  
