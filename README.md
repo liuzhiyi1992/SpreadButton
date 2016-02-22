@@ -11,8 +11,8 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 
 ###近期更新：  
 0.1.6:  更新 objective-C 版  
-0.1.5:  SpreadPositionModeFixed (you can use it like the IOS AssistiveTouch but in the app)(应用内的AssistiveTouch)  
-0.1.4：   
+0.1.5:  SpreadPositionModeTouchBorder (you can use it like the IOS AssistiveTouch but in the app)(应用内的AssistiveTouch)  
+0.1.4:  SpreadPositionModeFixed 增加物理吸附效果(可拖动，送开回弹)，凸显层次性，告别生硬的坐标约束
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/%E9%80%81%E6%99%BA1.gif)  
 
