@@ -7,11 +7,11 @@
 
 ##Summary:  
 A Button spread its sub path buttons like the flower or sickle(two spread mode) if you click it, once again, close.And you can also change the SpreadPositionMode between FixedMode & TouchBorderMode， while one like the marbleBall fixed on the wall, another one like the AssistiveTouch is iphone。  
-顾名思义，一个会散开的按钮，主体按钮被点击后触发子按钮的展出，选择其中一个功能子按钮，或者点击任意地方，触发子按钮的收缩隐藏。 SpreadButton设计有2种展开方式，2种位置模式，8种展开方向。   
+顾名思义，一个会散开的功能按钮，主体按钮被点击后，触发目录按钮的展开，选择其中一个功能子按钮或点击任意地方，触发子按钮的收缩隐藏。 SpreadButton设计有 2种展开方式，2种位置模式，8种展开方向。   
 
 ###近期更新：  
 0.1.6:  更新 objective-C 版  
-0.1.5:  SpreadPositionModeFixed(you can use it like the IOS AssistiveTouch but in the app)(应用内的AssistiveTouch)  
+0.1.5:  SpreadPositionModeFixed (you can use it like the IOS AssistiveTouch but in the app)(应用内的AssistiveTouch)  
 0.1.4：   
 
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/%E9%80%81%E6%99%BA1.gif)  
@@ -19,8 +19,9 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 <br>
 >个人博客原文: http://zyden.vicp.cc/zyspreadbutton/  
 Demo github地址: https://github.com/liuzhiyi1992/SpreadButton  
-欢迎转载，请注明出处谢谢  
+欢迎转载，请注明出处谢谢   
 <br>
+
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart1.gif)
 ![](https://raw.githubusercontent.com/liuzhiyi1992/MyStore/master/SpreadButton%E6%BC%94%E7%A4%BApart2.gif)  
 **两种展开模式(SpreadMode)：**镰刀模式 & 花朵模式  
