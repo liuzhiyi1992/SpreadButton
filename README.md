@@ -1,5 +1,5 @@
 # SpreadButton  
-![](https://img.shields.io/badge/pod-v0.1.6-blue.svg)
+![](https://img.shields.io/badge/pod-v0.1.7-blue.svg)
 ![](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 ![](https://img.shields.io/badge/supporting-Swift2.2-orange.svg)
 ![](https://img.shields.io/badge/supporting-objectiveC-yellow.svg)
@@ -40,7 +40,7 @@ Demo github地址: https://github.com/liuzhiyi1992/SpreadButton
 ##Installation  
 ####Cocoapods   
 ```
-pod 'SpreadButton', '~> 0.1.6'
+pod 'SpreadButton', '~> 0.1.7'
 ```
 ####Fork from my github
 you can select SpreadButton coded by objc or swift in directory corresponding  
