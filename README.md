@@ -40,7 +40,7 @@ Demo github地址: https://github.com/liuzhiyi1992/SpreadButton
 ##Installation  
 ####Cocoapods   
 ```
-pod 'SpreadButton'
+pod 'SpreadButton', '~> 0.1.6'
 ```
 ####Fork from my github
 you can select SpreadButton coded by objc or swift in directory corresponding  
