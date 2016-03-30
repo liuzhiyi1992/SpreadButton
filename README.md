@@ -18,7 +18,6 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 
 <br>
 >个人博客原文: http://zyden.vicp.cc/zyspreadbutton/  
-Demo github地址: https://github.com/liuzhiyi1992/SpreadButton  
 欢迎转载，请注明出处谢谢   
 
 <br>
