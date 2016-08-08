@@ -210,7 +210,7 @@
             break;
     }
     
-    CGPoint startOutSidePoint;
+    CGPoint startOutSidePoint = CGPointZero;
     CGFloat startAngle = 0.0;
     for (ZYSpreadSubButton *btn in _subButtons) {
         btn.transform = CGAffineTransformMakeTranslation(1.0, 1.0);
@@ -237,12 +237,12 @@
             case SpreadModeSickleSpread:
                 if (_direction == SpreadDirectionTop || _direction == SpreadDirectionBottom || _direction == SpreadDirectionLeft || _direction == SpreadDirectionRight) {
                     //---It does not provide SickleSpread in those four directions---
-                    animationPath = [self movingPathWithStartPoint:btn.layer.position keyPoints:shockOutsidePoint, shockInsidePoint, outsidePoint, nil];
+                    animationPath = [self movingPathWithStartPoint:btn.layer.position keyPointCount:3 keyPoints:shockOutsidePoint, shockInsidePoint, outsidePoint, nil];
                     positionAnimation.keyTimes = @[@(0.0), @(0.8), @(0.93), @(1.0)];
                     positionAnimation.duration = _animationDuring;
                 } else {
                     if (btnIndex == 0) { //the first btn
-                        animationPath = [self movingPathWithStartPoint:btn.layer.position keyPoints:startOutSidePoint, nil];
+                        animationPath = [self movingPathWithStartPoint:btn.layer.position keyPointCount:1 keyPoints:startOutSidePoint, nil];
                         positionAnimation.keyTimes = @[@(0.0), @(0.2)];
                     } else if (btnIndex != (_subButtons.count - 1)) {
                         animationPath = [self movingPathWithStartPoint:btn.layer.position endPoint:startOutSidePoint startAngle:startAngle endAngle:angle center:btn.layer.position shock:NO];
@@ -255,7 +255,7 @@
                 }
                 break;
             case SpreadModeFlowerSpread:
-                animationPath = [self movingPathWithStartPoint:btn.layer.position keyPoints:shockOutsidePoint, shockInsidePoint, outsidePoint, nil];
+                animationPath = [self movingPathWithStartPoint:btn.layer.position keyPointCount:3 keyPoints:shockOutsidePoint, shockInsidePoint, outsidePoint, nil];
                 positionAnimation.keyTimes = @[@(0.0), @(0.8), @(0.93), @(1.0)];
                 positionAnimation.duration = _animationDuring;
         }
@@ -305,7 +305,7 @@
             continue;
         }
         
-        UIBezierPath *animationPath = [self movingPathWithStartPoint:btn.layer.position keyPoints:_powerButton.layer.position, nil];
+        UIBezierPath *animationPath = [self movingPathWithStartPoint:btn.layer.position keyPointCount:1 keyPoints:_powerButton.layer.position, nil];
         CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
         positionAnimation.path = animationPath.CGPath;
         positionAnimation.keyTimes = @[@(0.0), @(1.0)];
@@ -357,34 +357,47 @@
 - (CGPoint)calculatePointWithAngle:(CGFloat)angle radius:(CGFloat)radius {
     //根据弧度和半径计算点的位置
     //center => powerButton
-    CGFloat x = _powerButton.center.x + cos(angle / 180.0 * π) * _radius;
-    CGFloat y = _powerButton.center.y - sin(angle / 180.0 * π) * _radius;
+    CGFloat x = _powerButton.center.x + cos(angle / 180.0 * π) * radius;
+    CGFloat y = _powerButton.center.y - sin(angle / 180.0 * π) * radius;
     return CGPointMake(x, y);
 }
 
-- (UIBezierPath *)movingPathWithStartPoint:(CGPoint)startPoint keyPoints:(CGPoint)keyPoints, ... {
+- (UIBezierPath *)movingPathWithStartPoint:(CGPoint)startPoint keyPointCount:(int)keyPointCount keyPoints:(CGPoint)keyPoints, ...NS_REQUIRES_NIL_TERMINATION {
     UIBezierPath *path = [UIBezierPath bezierPath];
-    va_list varList;
-    NSMutableArray *argArray = [NSMutableArray array];
-    NSValue *arg;
-    va_start(varList, keyPoints);
-    while ((arg = va_arg(varList, NSValue*))) {
-        [argArray addObject:arg];
-    }
+    
     [path moveToPoint:startPoint];
     [path addLineToPoint:keyPoints];
-    for (NSValue *value in argArray) {
-        CGPoint tempPoint;
-        [value getValue:&tempPoint];
-        [path addLineToPoint:tempPoint];
+    
+    va_list varList;
+    va_start(varList, keyPoints);    
+    for (int i = 0; i < keyPointCount - 1; i++) {
+        CGPoint point = va_arg(varList, CGPoint);
+        [path addLineToPoint:point];
     }
-    
-//    for (id value in argArray) {
-//        NSLog(@"%@", value);
-//    }
-    
+    va_end(varList);
     return path;
 }
+
+//- (UIBezierPath *)movingPathWithStartPoint:(CGPoint)startPoint keyPoints:(CGPoint)keyPoints, ... {
+//- (UIBezierPath *)movingPathWithStartPoint:(CGPoint)startPoint keyPointCount:(int)keyPointCount keyPoints:(CGPoint)keyPoints, ...NS_REQUIRES_NIL_TERMINATION {
+//    UIBezierPath *path = [UIBezierPath bezierPath];
+//    va_list varList;
+//    NSMutableArray *argArray = [NSMutableArray array];
+//    NSValue *arg;
+//    va_start(varList, keyPoints);
+//    while ((arg = va_arg(varList, NSValue *))) {
+//        [argArray addObject:arg];
+//    }
+//    va_end(varList);
+//    [path moveToPoint:startPoint];
+//    [path addLineToPoint:keyPoints];
+//    for (NSValue *value in argArray) {
+//        CGPoint tempPoint;
+//        [value getValue:&tempPoint];
+//        [path addLineToPoint:tempPoint];
+//    }
+//    return path;
+//}
 
 - (UIBezierPath *)movingPathWithStartPoint:(CGPoint)startPoint
                                   endPoint:(CGPoint)endPoint
