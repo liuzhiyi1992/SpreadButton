@@ -12,33 +12,33 @@ import UIKit
 let π = CGFloat(M_PI)
 
 enum SpreadDirection {
-    case SpreadDirectionTop
-    case SpreadDirectionBottom
-    case SpreadDirectionLeft
-    case SpreadDirectionRight
-    case SpreadDirectionLeftUp
-    case SpreadDirectionLeftDown
-    case SpreadDirectionRightUp
-    case SpreadDirectionRightDown
+    case spreadDirectionTop
+    case spreadDirectionBottom
+    case spreadDirectionLeft
+    case spreadDirectionRight
+    case spreadDirectionLeftUp
+    case spreadDirectionLeftDown
+    case spreadDirectionRightUp
+    case spreadDirectionRightDown
 }
 
 enum SpreadMode {
-    case SpreadModeSickleSpread
-    case SpreadModeFlowerSpread
+    case spreadModeSickleSpread
+    case spreadModeFlowerSpread
 }
 
 enum SpreadPositionMode {
-    case SpreadPositionModeFixed
-    case SpreadPositionModeTouchBorder
+    case spreadPositionModeFixed
+    case spreadPositionModeTouchBorder
 }
 
-typealias ButtonWillSpreadBlock = (spreadButton: SpreadButton) -> Void
-typealias ButtonDidSpreadBlock = (spreadButton: SpreadButton) -> Void
-typealias ButtonWillCloseBlock = (spreadButton: SpreadButton) -> Void
-typealias ButtonDidCloseBlock = (spreadButton: SpreadButton) -> Void
+typealias ButtonWillSpreadBlock = (_ spreadButton: SpreadButton) -> Void
+typealias ButtonDidSpreadBlock = (_ spreadButton: SpreadButton) -> Void
+typealias ButtonWillCloseBlock = (_ spreadButton: SpreadButton) -> Void
+typealias ButtonDidCloseBlock = (_ spreadButton: SpreadButton) -> Void
 
 
-class SpreadButton: UIView {
+class SpreadButton: UIView, CAAnimationDelegate {
     
 //    lazy var buttonWillSpreadBlock: ButtonWillSpreadBlock = {
 //        return {print("Button Will Spread")}
@@ -68,14 +68,14 @@ class SpreadButton: UIView {
         print("Button Did Closed")
     }
     
-    private static let sickleSpreadAngleDefault: CGFloat = 90.0
-    private static let flowerSpreadAngleDefault: CGFloat = 120.0
-    private static let spredaDirectionDefault: SpreadDirection = .SpreadDirectionTop
-    private static let spreadRadiusDefault: CGFloat = 100.0
-    private static let coverAlphaDefault: CGFloat = 0.1
-    private static let touchBorderMarginDefault: CGFloat = 10.0
-    private static let touchBorderAnimationDuringDefault = 0.5
-    private static let animationDuringDefault = 0.2
+    fileprivate static let sickleSpreadAngleDefault: CGFloat = 90.0
+    fileprivate static let flowerSpreadAngleDefault: CGFloat = 120.0
+    fileprivate static let spredaDirectionDefault: SpreadDirection = .spreadDirectionTop
+    fileprivate static let spreadRadiusDefault: CGFloat = 100.0
+    fileprivate static let coverAlphaDefault: CGFloat = 0.1
+    fileprivate static let touchBorderMarginDefault: CGFloat = 10.0
+    fileprivate static let touchBorderAnimationDuringDefault = 0.5
+    fileprivate static let animationDuringDefault = 0.2
 
     //During
     var animationDuring = animationDuringDefault {
@@ -93,15 +93,15 @@ class SpreadButton: UIView {
         get { return cover.backgroundColor! }
     }
     
-    var mode: SpreadMode = .SpreadModeSickleSpread
-    var positionMode: SpreadPositionMode = .SpreadPositionModeFixed
+    var mode: SpreadMode = .spreadModeSickleSpread
+    var positionMode: SpreadPositionMode = .spreadPositionModeFixed
     
     var radius: CGFloat = spreadRadiusDefault
     
     var direction: SpreadDirection = spredaDirectionDefault {
         didSet {
             print("didset")
-            if direction == .SpreadDirectionTop || direction == .SpreadDirectionLeft || direction == .SpreadDirectionRight || direction == .SpreadDirectionBottom {
+            if direction == .spreadDirectionTop || direction == .spreadDirectionLeft || direction == .spreadDirectionRight || direction == .spreadDirectionBottom {
                 spreadAngle = SpreadButton.flowerSpreadAngleDefault
             } else {
                 spreadAngle = SpreadButton.sickleSpreadAngleDefault
@@ -112,18 +112,18 @@ class SpreadButton: UIView {
     var touchBorderMargin: CGFloat = touchBorderMarginDefault
     
     
-    private var subButtons: [SpreadSubButton]?
-    private let defaultCoverColor = UIColor.blackColor()
+    fileprivate var subButtons: [SpreadSubButton]?
+    fileprivate let defaultCoverColor = UIColor.black
     
-    private var powerButton: UIButton!
+    fileprivate var powerButton: UIButton!
     
-    private var cover: UIView!
+    fileprivate var cover: UIView!
     
-    private var animator: UIDynamicAnimator!
+    fileprivate var animator: UIDynamicAnimator!
     
-    private var mainFrame: CGRect!
+    fileprivate var mainFrame: CGRect!
     
-    private var powerButtonPosition: CGPoint {//记录Power相对于super的位置，还没展开时，就是SpreadButton的位置
+    fileprivate var powerButtonPosition: CGPoint {//记录Power相对于super的位置，还没展开时，就是SpreadButton的位置
         get { return isSpread ? self.powerButton.center : self.center }
         set {
             self.center = newValue
@@ -131,11 +131,11 @@ class SpreadButton: UIView {
         }
     }
     
-    private var isSpread = false
+    fileprivate var isSpread = false
     
-    private var superViewRelativePosition: CGPoint!//记录展开按钮相对于super的位置
+    fileprivate var superViewRelativePosition: CGPoint!//记录展开按钮相对于super的位置
     
-    private var spreadAngle: CGFloat = flowerSpreadAngleDefault
+    fileprivate var spreadAngle: CGFloat = flowerSpreadAngleDefault
     
     
     
@@ -144,7 +144,7 @@ class SpreadButton: UIView {
             fatalError("ERROR, image can not be nil")
         }
         
-        let mainFrame = CGRectMake(position.x, position.y, nonNilImage.size.width, nonNilImage.size.height)
+        let mainFrame = CGRect(x: position.x, y: position.y, width: nonNilImage.size.width, height: nonNilImage.size.height)
         super.init(frame: mainFrame)
         
         //save the mainFrame
@@ -160,21 +160,21 @@ class SpreadButton: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureMainButton(image: UIImage, highlightImage: UIImage?) {
-        powerButton = UIButton(frame: CGRectMake(0, 0, image.size.width, image.size.height))
+    func configureMainButton(_ image: UIImage, highlightImage: UIImage?) {
+        powerButton = UIButton(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
         //初始位置
-        powerButton.setBackgroundImage(image, forState: .Normal)
+        powerButton.setBackgroundImage(image, for: UIControlState())
         if let nonNilhighlightImage = highlightImage {
-            powerButton.setBackgroundImage(nonNilhighlightImage, forState: .Highlighted)
+            powerButton.setBackgroundImage(nonNilhighlightImage, for: .highlighted)
         }
-        powerButton.addTarget(self, action: #selector(tapPowerButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        powerButton.addTarget(self, action: #selector(tapPowerButton(_:)), for: UIControlEvents.touchUpInside)
         self.addSubview(powerButton)
     }
     
     func configureCover() {
         cover = UIView(frame: self.bounds)
-        cover.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
-        cover.userInteractionEnabled = true
+        cover.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        cover.isUserInteractionEnabled = true
         cover.backgroundColor = defaultCoverColor
         cover.alpha = 0
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapCover))
@@ -186,7 +186,7 @@ class SpreadButton: UIView {
         self.addGestureRecognizer(panGestureRecognizer)
     }
     
-    func tapPowerButton(button: UIButton) {
+    func tapPowerButton(_ button: UIButton) {
         isSpread ? closeButton(nil) : spreadButton()
     }
     
@@ -196,42 +196,42 @@ class SpreadButton: UIView {
         }
     }
     
-    func panSpreadButton(gesture: UIPanGestureRecognizer) {
+    func panSpreadButton(_ gesture: UIPanGestureRecognizer) {
         //drag the powerButton
         if isSpread {
             return
         }
         switch gesture.state {
-        case .Began:
+        case .began:
             animator.removeAllBehaviors()
-        case .Ended:
+        case .ended:
             switch positionMode {
-            case .SpreadPositionModeFixed:
-                let snapBehavior = UISnapBehavior(item: self, snapToPoint: superViewRelativePosition)
+            case .spreadPositionModeFixed:
+                let snapBehavior = UISnapBehavior(item: self, snapTo: superViewRelativePosition)
                 snapBehavior.damping = 0.5
                 animator.addBehavior(snapBehavior)
-            case .SpreadPositionModeTouchBorder:
-                let location = gesture.locationInView(self.superview)
+            case .spreadPositionModeTouchBorder:
+                let location = gesture.location(in: self.superview)
                 var destinationLocation: CGPoint
                 
                 if location.y < 90 {//上面
-                    destinationLocation = CGPointMake(location.x, self.bounds.width/2 + touchBorderMargin)
-                } else if location.y > UIScreen.mainScreen().bounds.height - 90 {//下面
-                    destinationLocation = CGPointMake(location.x, UIScreen.mainScreen().bounds.height - self.bounds.height/2 - touchBorderMargin)
-                } else if location.x > UIScreen.mainScreen().bounds.width/2 {//右边
-                    destinationLocation = CGPointMake(UIScreen.mainScreen().bounds.width - (self.bounds.width/2 + touchBorderMargin), location.y)
+                    destinationLocation = CGPoint(x: location.x, y: self.bounds.width/2 + touchBorderMargin)
+                } else if location.y > UIScreen.main.bounds.height - 90 {//下面
+                    destinationLocation = CGPoint(x: location.x, y: UIScreen.main.bounds.height - self.bounds.height/2 - touchBorderMargin)
+                } else if location.x > UIScreen.main.bounds.width/2 {//右边
+                    destinationLocation = CGPoint(x: UIScreen.main.bounds.width - (self.bounds.width/2 + touchBorderMargin), y: location.y)
                 } else {//左边
-                    destinationLocation = CGPointMake(self.bounds.width/2 + touchBorderMargin, location.y)
+                    destinationLocation = CGPoint(x: self.bounds.width/2 + touchBorderMargin, y: location.y)
                 }
                 
                 let touchBorderAnimation = CABasicAnimation(keyPath: "position")
                 touchBorderAnimation.delegate = self
-                touchBorderAnimation.removedOnCompletion = false
-                touchBorderAnimation.fromValue = location as? AnyObject
-                touchBorderAnimation.toValue = destinationLocation as? AnyObject
+                touchBorderAnimation.isRemovedOnCompletion = false
+                touchBorderAnimation.fromValue = location as AnyObject
+                touchBorderAnimation.toValue = destinationLocation as AnyObject
                 touchBorderAnimation.duration = SpreadButton.touchBorderAnimationDuringDefault
                 touchBorderAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-                self.layer.addAnimation(touchBorderAnimation, forKey: "touchBorder")
+                self.layer.add(touchBorderAnimation, forKey: "touchBorder")
                 
                 CATransaction.begin()
                 CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
@@ -240,7 +240,7 @@ class SpreadButton: UIView {
             }
             
         default:
-            let location = gesture.locationInView(self.superview)
+            let location = gesture.location(in: self.superview)
             self.center = location
         }
     }
@@ -252,7 +252,7 @@ class SpreadButton: UIView {
             return
         }
         //Block
-        buttonWillSpreadBlock(spreadButton: self)
+        buttonWillSpreadBlock(self)
         animator.removeAllBehaviors()
         isSpread = true
         
@@ -267,15 +267,15 @@ class SpreadButton: UIView {
         self.insertSubview(cover, belowSubview: powerButton)
         
         //cover animation
-        UIView.animateWithDuration(animationDuringSpread) { () -> Void in
+        UIView.animate(withDuration: animationDuringSpread, animations: { () -> Void in
             self.cover.alpha = self.coverAlpha
             self.powerButtonRotationAnimate()
-        }
+        }) 
         //按钮展开
         spreadSubButton()
         
         //Block
-        buttonDidSpreadBlock(spreadButton: self)
+        buttonDidSpreadBlock(self)
     }
     
     //子按钮展开动作
@@ -286,33 +286,33 @@ class SpreadButton: UIView {
         let startSpace: CGFloat = (180 - spreadAngle)/2
         
         switch direction {
-            case .SpreadDirectionTop:
+            case .spreadDirectionTop:
                 angle = startSpace
-            case .SpreadDirectionBottom:
+            case .spreadDirectionBottom:
                 angle = -180 + startSpace
-            case .SpreadDirectionLeft:
+            case .spreadDirectionLeft:
                 angle = 90 + startSpace
-            case .SpreadDirectionRight:
+            case .spreadDirectionRight:
                 angle = -90 + startSpace
-            case .SpreadDirectionLeftUp:
+            case .spreadDirectionLeftUp:
                 angle = 90
-            case .SpreadDirectionLeftDown:
+            case .spreadDirectionLeftDown:
                 angle = 180
-            case .SpreadDirectionRightUp:
+            case .spreadDirectionRightUp:
                 angle = 0
-            case .SpreadDirectionRightDown:
+            case .spreadDirectionRightDown:
                 angle = -90
         }
         
         var startOutSidePoint: CGPoint!
         var startAngle: CGFloat!
         for btn in self.subButtons! {
-            btn.transform = CGAffineTransformMakeTranslation(1.0, 1.0)
+            btn.transform = CGAffineTransform(translationX: 1.0, y: 1.0)
             self.insertSubview(btn, belowSubview: powerButton)
             btn.alpha = 1.0
             btn.center = powerButton.center
             
-            let btnIndex = subButtons?.indexOf(btn)
+            let btnIndex = subButtons?.index(of: btn)
             if btnIndex == 0 {
                 startOutSidePoint = calculatePoint(angle, radius: radius)
                 startAngle = angle
@@ -326,8 +326,8 @@ class SpreadButton: UIView {
             var animationPath: UIBezierPath!
             
             switch mode {
-                case .SpreadModeSickleSpread:
-                    if direction == .SpreadDirectionTop || direction == .SpreadDirectionBottom || direction == .SpreadDirectionLeft || direction == .SpreadDirectionRight {
+                case .spreadModeSickleSpread:
+                    if direction == .spreadDirectionTop || direction == .spreadDirectionBottom || direction == .spreadDirectionLeft || direction == .spreadDirectionRight {
                         //---It does not provide SickleSpread in those four directions---
                         animationPath = movingPath(btn.layer.position, keyPoints: shockOutsidePoint, shockInsidePoint, outsidePoint)
                         positionAnimation.keyTimes = [0.0, 0.8, 0.93, 1.0]
@@ -346,13 +346,13 @@ class SpreadButton: UIView {
                         }
                         positionAnimation.duration = animationDuringSpread*(1+0.2*Double((btnIndex?.hashValue)!))
                     }
-                case .SpreadModeFlowerSpread:
+                case .spreadModeFlowerSpread:
                     animationPath = movingPath(btn.layer.position, keyPoints: shockOutsidePoint, shockInsidePoint, outsidePoint)
                     positionAnimation.keyTimes = [0.0, 0.8, 0.93, 1.0]
                     positionAnimation.duration = animationDuringSpread
             }
-            positionAnimation.path = animationPath.CGPath
-            btn.layer.addAnimation(positionAnimation, forKey: "sickleSpread")
+            positionAnimation.path = animationPath.cgPath
+            btn.layer.add(positionAnimation, forKey: "sickleSpread")
             positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
             
             CATransaction.begin()
@@ -366,28 +366,28 @@ class SpreadButton: UIView {
     }
     
     
-    func closeButton(exclusiveBtn: SpreadSubButton?) {
+    func closeButton(_ exclusiveBtn: SpreadSubButton?) {
         //Block
-        buttonWillCloseBlock(spreadButton: self)
+        buttonWillCloseBlock(self)
         isSpread = false
         
         //cover animation
-        UIView.animateWithDuration(animationDuringClose, animations: { () -> Void in
+        UIView.animate(withDuration: animationDuringClose, animations: { () -> Void in
             self.cover.alpha = 0
             self.powerButtonCloseAnimate()
-            }) { (flag) -> Void in
+            }, completion: { (flag) -> Void in
                 self.cover.removeFromSuperview()
                 self.frame = self.powerButton.frame
                 self.powerButton.frame = self.bounds
-        }
+        }) 
         
         closeSubButton(exclusiveBtn)
         
         //Block
-        buttonDidCloseBlock(spreadButton: self)
+        buttonDidCloseBlock(self)
     }
     
-    func closeSubButton(exclusiveBtn: SpreadSubButton?) {
+    func closeSubButton(_ exclusiveBtn: SpreadSubButton?) {
         for btn in subButtons! {
             if exclusiveBtn != nil {
                 if btn != exclusiveBtn {
@@ -398,17 +398,17 @@ class SpreadButton: UIView {
             
             let animationPath = movingPath(btn.layer.position, keyPoints: powerButton.layer.position)
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
-            positionAnimation.path = animationPath.CGPath
+            positionAnimation.path = animationPath.cgPath
             //TODO这里错了。。times?
             positionAnimation.values = [0.0, 1.0]
             positionAnimation.duration = animationDuringClose
             positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            btn.layer.addAnimation(positionAnimation, forKey: "close")
+            btn.layer.add(positionAnimation, forKey: "close")
             
             CATransaction.begin()
             //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
             CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-            btn.frame = CGRectMake(0, 0, btn.bounds.width, btn.bounds.height)
+            btn.frame = CGRect(x: 0, y: 0, width: btn.bounds.width, height: btn.bounds.height)
             CATransaction.commit()
         }
         
@@ -429,12 +429,12 @@ class SpreadButton: UIView {
             dismissGroupAnimation.animations = [alphaAnimation, scaleAnimation]
             dismissGroupAnimation.duration = animationDuringClose
             
-            nonNilExclusiveBtn.layer.addAnimation(dismissGroupAnimation, forKey: "closeGroup")
+            nonNilExclusiveBtn.layer.add(dismissGroupAnimation, forKey: "closeGroup")
             
             CATransaction.begin()
             //设置kCATransactionDisableActions的valu为true, 来禁用layer的implicit animations
             CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
-            nonNilExclusiveBtn.transform = CGAffineTransformMakeScale(3.0, 3.0)
+            nonNilExclusiveBtn.transform = CGAffineTransform(scaleX: 3.0, y: 3.0)
             nonNilExclusiveBtn.layer.opacity = 0.0
             CATransaction.commit()
             
@@ -442,41 +442,41 @@ class SpreadButton: UIView {
     }
     
     
-    func calculatePoint(angle: CGFloat, radius: CGFloat) -> CGPoint {
+    func calculatePoint(_ angle: CGFloat, radius: CGFloat) -> CGPoint {
         //根据弧度和半径计算点的位置
         //center => powerButton
         return CGPoint(x: powerButton.center.x + cos(angle/180.0 * π) * radius, y: powerButton.center.y - sin(angle/180.0 * π) * radius)
     }
     
     //移动路径
-    func movingPath(startPoint: CGPoint, keyPoints: CGPoint...) -> UIBezierPath {
+    func movingPath(_ startPoint: CGPoint, keyPoints: CGPoint...) -> UIBezierPath {
         let path = UIBezierPath()
-        path.moveToPoint(startPoint)
+        path.move(to: startPoint)
         for point in keyPoints {
-            path.addLineToPoint(point)
+            path.addLine(to: point)
         }
         return path
     }
     
-    func movingPath(startPoint: CGPoint, endPoint: CGPoint, startAngle: CGFloat, endAngle: CGFloat, center: CGPoint, shock: Bool = false) -> UIBezierPath {
+    func movingPath(_ startPoint: CGPoint, endPoint: CGPoint, startAngle: CGFloat, endAngle: CGFloat, center: CGPoint, shock: Bool = false) -> UIBezierPath {
         let path = UIBezierPath()
-        path.moveToPoint(startPoint)
-        path.addLineToPoint(endPoint)
+        path.move(to: startPoint)
+        path.addLine(to: endPoint)
         
         if shock {
-            path.addArcWithCenter(center, radius: radius, startAngle: -startAngle, endAngle: -endAngle - 3/180*π, clockwise: false)
-            path.addArcWithCenter(center, radius: radius, startAngle: -endAngle - 3/180*π, endAngle: -endAngle + 1/180*π, clockwise: true)
-            path.addArcWithCenter(center, radius: radius, startAngle: -endAngle + 1/180*π, endAngle: -endAngle, clockwise: false)
+            path.addArc(withCenter: center, radius: radius, startAngle: -startAngle, endAngle: -endAngle - 3/180*π, clockwise: false)
+            path.addArc(withCenter: center, radius: radius, startAngle: -endAngle - 3/180*π, endAngle: -endAngle + 1/180*π, clockwise: true)
+            path.addArc(withCenter: center, radius: radius, startAngle: -endAngle + 1/180*π, endAngle: -endAngle, clockwise: false)
         } else {
-            path.addArcWithCenter(center, radius: radius, startAngle: -startAngle, endAngle: -endAngle, clockwise: false)
+            path.addArc(withCenter: center, radius: radius, startAngle: -startAngle, endAngle: -endAngle, clockwise: false)
         }
         
         return path
     }
     
     func changeSpreadDirection() {
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        let screenHeight = UIScreen.mainScreen().bounds.height
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
         let centerAreaWidth = screenWidth - 2 * radius
         let location = self.center
         //改变Spreading的位置
@@ -485,33 +485,33 @@ class SpreadButton: UIView {
         if location.x < screenWidth/2 - centerAreaWidth/2 {//左边
             switch location.y {
             case 0..<radius:
-                direction = .SpreadDirectionRightDown
+                direction = .spreadDirectionRightDown
             case radius..<(screenHeight - radius):
-                direction = .SpreadDirectionRight
+                direction = .spreadDirectionRight
             case (screenHeight - radius)..<screenHeight:
-                direction = .SpreadDirectionRightUp
+                direction = .spreadDirectionRightUp
             default: break
             }
         } else if location.x > screenWidth/2 + centerAreaWidth/2 {//右边
             switch location.y {
             case 0..<radius:
-                direction = .SpreadDirectionLeftDown
+                direction = .spreadDirectionLeftDown
             case radius..<(screenHeight - radius):
-                direction = .SpreadDirectionLeft
+                direction = .spreadDirectionLeft
             case (screenHeight - radius)..<screenHeight:
-                direction = .SpreadDirectionLeftUp
+                direction = .spreadDirectionLeftUp
             default: break
             }
         } else {//中间
             if location.y < screenHeight/2 {
-                direction = .SpreadDirectionBottom
+                direction = .spreadDirectionBottom
             } else {
-                direction = .SpreadDirectionTop
+                direction = .spreadDirectionTop
             }
         }
     }
     
-    override func willMoveToSuperview(newSuperview: UIView?) {
+    override func willMove(toSuperview newSuperview: UIView?) {
         cover.frame = (newSuperview?.bounds)!
     }
     
@@ -520,31 +520,31 @@ class SpreadButton: UIView {
     }
     
     func powerButtonRotationAnimate() {
-        powerButton.transform = CGAffineTransformMakeRotation(CGFloat(-0.75 * π))
+        powerButton.transform = CGAffineTransform(rotationAngle: CGFloat(-0.75 * π))
     }
     
     func powerButtonCloseAnimate() {
-        powerButton.transform = CGAffineTransformMakeRotation(0)
+        powerButton.transform = CGAffineTransform(rotationAngle: 0)
     }
     
     //setter
-    func setSubButtons(buttons: [SpreadSubButton?]) {
-        _ = buttons.flatMap { $0?.addTarget(self, action: #selector(clickedSubButton(_:)), forControlEvents: .TouchUpInside) }
+    func setSubButtons(_ buttons: [SpreadSubButton?]) {
+        _ = buttons.flatMap { $0?.addTarget(self, action: #selector(clickedSubButton(_:)), for: .touchUpInside) }
         let nonNilButtons = buttons.flatMap { $0 }
         subButtons = Array<SpreadSubButton>()
-        subButtons?.appendContentsOf(nonNilButtons)
+        subButtons?.append(contentsOf: nonNilButtons)
     }
     
-    func clickedSubButton(sender: SpreadSubButton) {
+    func clickedSubButton(_ sender: SpreadSubButton) {
         closeButton(sender)
-        let index = subButtons?.indexOf(sender)
+        let index = subButtons?.index(of: sender)
         if let nonNilIndex = index {
-            sender.clickedBlock?(index:nonNilIndex, sender: sender)
+            sender.clickedBlock?(nonNilIndex, sender)
         }
     }
     
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
-        let touchBorderAnim = self.layer.animationForKey("touchBorder")
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        let touchBorderAnim = self.layer.animation(forKey: "touchBorder")
         if touchBorderAnim == anim {
             changeSpreadDirection()
         }

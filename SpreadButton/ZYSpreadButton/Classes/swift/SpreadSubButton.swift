@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias ButtonClickBlock = (index: Int, sender: UIButton) -> Void
+typealias ButtonClickBlock = (_ index: Int, _ sender: UIButton) -> Void
 
 class SpreadSubButton: UIButton {
     
@@ -20,12 +20,12 @@ class SpreadSubButton: UIButton {
             fatalError("ERROR, image can not be nil")
         }
         
-        let buttonFrame = CGRectMake(0, 0, nonNilBackgroundImage.size.width, nonNilBackgroundImage.size.height)
+        let buttonFrame = CGRect(x: 0, y: 0, width: nonNilBackgroundImage.size.width, height: nonNilBackgroundImage.size.height)
         super.init(frame: buttonFrame)
-        self.setBackgroundImage(nonNilBackgroundImage, forState: .Normal)
+        self.setBackgroundImage(nonNilBackgroundImage, for: UIControlState())
         
         if let nonNilHighlightImage = highlightImage {
-            self.setBackgroundImage(nonNilHighlightImage, forState: .Highlighted)
+            self.setBackgroundImage(nonNilHighlightImage, for: .highlighted)
         }
         
         self.clickedBlock = clickedBlock

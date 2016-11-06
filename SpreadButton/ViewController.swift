@@ -20,43 +20,46 @@ class ViewController: UIViewController {
         
         configureButtonCorner()
         
-//        runWithSwiftCode();
-        runWithObjcCode();
+        runWithSwiftCode();
+//        runWithObjcCode();
     }
     
     //ObjC
     func runWithObjcCode() {
-        let btn1 = ZYSpreadSubButton(backgroundImage: UIImage(named: "clock"), highlightImage: UIImage(named: "clock_highlight")) { (index, sender) -> Void in
+        let btn1 = ZYSpreadSubButton(backgroundImage: UIImage(named: "clock"), highlight: UIImage(named: "clock_highlight")) { (index, sender) -> Void in
             print("第\(index+1)个按钮被按了")
         }
         
-        let btn2 = ZYSpreadSubButton(backgroundImage: UIImage(named: "pencil"), highlightImage: UIImage(named: "pencil_highlight")) { (index, sender) -> Void in
-            print("第\(index+1)个按钮被按了")
-        }
-        
-        
-        let btn3 = ZYSpreadSubButton(backgroundImage: UIImage(named: "juice"), highlightImage: UIImage(named: "juice_highlight")) { (index, sender) -> Void in
+        let btn2 = ZYSpreadSubButton(backgroundImage: UIImage(named: "pencil"), highlight: UIImage(named: "pencil_highlight")) { (index, sender) -> Void in
             print("第\(index+1)个按钮被按了")
         }
         
         
-        let btn4 = ZYSpreadSubButton(backgroundImage: UIImage(named: "service"), highlightImage: UIImage(named: "service_highlight")) { (index, sender) -> Void in
+        let btn3 = ZYSpreadSubButton(backgroundImage: UIImage(named: "juice"), highlight: UIImage(named: "juice_highlight")) { (index, sender) -> Void in
             print("第\(index+1)个按钮被按了")
         }
         
         
-        let btn5 = ZYSpreadSubButton(backgroundImage: UIImage(named: "shower"), highlightImage: UIImage(named: "shower_highlight")) { (index, sender) -> Void in
+        let btn4 = ZYSpreadSubButton(backgroundImage: UIImage(named: "service"), highlight: UIImage(named: "service_highlight")) { (index, sender) -> Void in
             print("第\(index+1)个按钮被按了")
         }
         
-        let zySpreadButton = ZYSpreadButton(backgroundImage: UIImage(named: "powerButton"), highlightImage: UIImage(named: "powerButton_highlight"), position: CGPointMake(40, UIScreen.mainScreen().bounds.height - 40))
+        
+        let btn5 = ZYSpreadSubButton(backgroundImage: UIImage(named: "shower"), highlight: UIImage(named: "shower_highlight")) { (index, sender) -> Void in
+            print("第\(index+1)个按钮被按了")
+        }
+        
+        let zySpreadButton = ZYSpreadButton(backgroundImage: UIImage(named: "powerButton"), highlight: UIImage(named: "powerButton_highlight"), position: CGPoint(x: 40, y: UIScreen.main.bounds.height - 40))
         self.zySpreadButton = zySpreadButton;
         
-        zySpreadButton.subButtons = [btn1, btn2, btn3, btn4, btn5]
-        zySpreadButton.mode = SpreadModeSickleSpread
-        zySpreadButton.direction = SpreadDirectionRightUp
-        zySpreadButton.radius = 120
-        zySpreadButton.positionMode = SpreadPositionModeFixed
+        guard let button1 = btn1, let button2 = btn2, let button3 = btn3, let button4 = btn4, let button5 = btn5 else {
+            return;
+        }
+        zySpreadButton?.subButtons = [button1, button2, button3, button4, button5]
+        zySpreadButton?.mode = SpreadModeSickleSpread
+        zySpreadButton?.direction = SpreadDirectionRightUp
+        zySpreadButton?.radius = 120
+        zySpreadButton?.positionMode = SpreadPositionModeFixed
         
         /*  and you can assign a newValue to change the default
         spreadButton?.animationDuring = 0.2
@@ -69,13 +72,13 @@ class ViewController: UIViewController {
         
         
         //you can assign the Blocks like this
-        zySpreadButton.buttonWillSpreadBlock = { print("\(CGRectGetMaxY($0.frame)) will spread") }
-        zySpreadButton.buttonDidSpreadBlock = { _ in print("did spread") }
-        zySpreadButton.buttonWillCloseBlock = { _ in print("will closed") }
-        zySpreadButton.buttonDidCloseBlock = { _ in print("did closed") }
+        zySpreadButton?.buttonWillSpreadBlock = { print("\($0?.frame.maxY) will spread") }
+        zySpreadButton?.buttonDidSpreadBlock = { _ in print("did spread") }
+        zySpreadButton?.buttonWillCloseBlock = { _ in print("will closed") }
+        zySpreadButton?.buttonDidCloseBlock = { _ in print("did closed") }
         
         if zySpreadButton != nil {
-            self.view.addSubview(zySpreadButton)
+            self.view.addSubview(zySpreadButton!)
         }
     }
     
@@ -104,14 +107,14 @@ class ViewController: UIViewController {
         
         let spreadButton = SpreadButton(image: UIImage(named: "powerButton"),
                                highlightImage: UIImage(named: "powerButton_highlight"),
-                                     position: CGPointMake(40, UIScreen.mainScreen().bounds.height - 40))
+                                     position: CGPoint(x: 40, y: UIScreen.main.bounds.height - 40))
         self.spreadButton = spreadButton
         
         spreadButton?.setSubButtons([btn1, btn2, btn3, btn4, btn5])
-        spreadButton?.mode = SpreadMode.SpreadModeSickleSpread
-        spreadButton?.direction = SpreadDirection.SpreadDirectionRightUp
+        spreadButton?.mode = SpreadMode.spreadModeSickleSpread
+        spreadButton?.direction = SpreadDirection.spreadDirectionRightUp
         spreadButton?.radius = 120
-        spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeFixed
+        spreadButton?.positionMode = SpreadPositionMode.spreadPositionModeFixed
         
         /*  and you can assign a newValue to change the default
         spreadButton?.animationDuring = 0.2
@@ -123,7 +126,7 @@ class ViewController: UIViewController {
         */
         
         //you can assign the Blocks like this
-        spreadButton?.buttonWillSpreadBlock = { print(CGRectGetMaxY($0.frame)) }
+        spreadButton?.buttonWillSpreadBlock = { print($0.frame.maxY) }
         spreadButton?.buttonDidSpreadBlock = { _ in print("did spread") }
         spreadButton?.buttonWillCloseBlock = { _ in print("will closed") }
         spreadButton?.buttonDidCloseBlock = { _ in print("did closed") }
@@ -133,16 +136,16 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func changePositionMode(sender: AnyObject) {
+    @IBAction func changePositionMode(_ sender: AnyObject) {
         
         //display with Swift Code
         if spreadButton != nil {
-            if spreadButton?.positionMode == SpreadPositionMode.SpreadPositionModeFixed {
-                spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeTouchBorder
-                sender.setTitle(" ModeTouchBorder ", forState: .Normal)
+            if spreadButton?.positionMode == SpreadPositionMode.spreadPositionModeFixed {
+                spreadButton?.positionMode = SpreadPositionMode.spreadPositionModeTouchBorder
+                sender.setTitle(" ModeTouchBorder ", for: UIControlState())
             } else {
-                spreadButton?.positionMode = SpreadPositionMode.SpreadPositionModeFixed
-                sender.setTitle(" ModeFixed ", forState: .Normal)
+                spreadButton?.positionMode = SpreadPositionMode.spreadPositionModeFixed
+                sender.setTitle(" ModeFixed ", for: UIControlState())
             }
         }
         
@@ -150,10 +153,10 @@ class ViewController: UIViewController {
         if zySpreadButton != nil {
             if zySpreadButton.positionMode == SpreadPositionModeFixed {
                 zySpreadButton.positionMode = SpreadPositionModeTouchBorder
-                sender.setTitle(" ModeTouchBorder ", forState: .Normal)
+                sender.setTitle(" ModeTouchBorder ", for: UIControlState())
             } else {
                 zySpreadButton.positionMode = SpreadPositionModeFixed
-                sender.setTitle(" ModeFixed ", forState: .Normal)
+                sender.setTitle(" ModeFixed ", for: UIControlState())
             }
         }
     }
