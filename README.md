@@ -1,7 +1,7 @@
 # SpreadButton  
 ![](https://img.shields.io/badge/pod-v0.2.1-blue.svg)
 ![](https://img.shields.io/badge/license-MIT-brightgreen.svg)
-![](https://img.shields.io/badge/supporting-Swift2.2-orange.svg)
+![](https://img.shields.io/badge/supporting-Swift3-orange.svg)
 ![](https://img.shields.io/badge/supporting-objectiveC-yellow.svg)
 ![](https://img.shields.io/badge/build-passing-brightgreen.svg)  
 
@@ -10,7 +10,7 @@ A Button spread its sub path buttons like the flower or sickle(two spread mode) 
 顾名思义，一个会散开的功能按钮，主体按钮被点击后，触发目录按钮的展开，选择其中一个功能子按钮或点击任意地方，触发子按钮的收缩隐藏。 SpreadButton设计有 2种展开方式，2种位置模式，8种展开方向。   
 
 ###近期更新：  
-- 0.2.1： 适配 swift3.0  
+- 0.2.1:  适配 swift3.0  
 - 0.2.0:  更新 swift2.2语法, oc版可变参对CGPoint更稳定  
 - 0.1.6:  更新 objective-C 版  
 - 0.1.5:  SpreadPositionModeTouchBorder (you can use it like the IOS AssistiveTouch but in the app)(应用内的AssistiveTouch)  
