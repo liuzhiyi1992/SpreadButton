@@ -76,7 +76,8 @@ class SpreadButton: UIView, CAAnimationDelegate {
     fileprivate static let touchBorderMarginDefault: CGFloat = 10.0
     fileprivate static let touchBorderAnimationDuringDefault = 0.5
     fileprivate static let animationDuringDefault = 0.2
-
+    fileprivate static let magneticScopeRatioVertical = 0.15
+    
     //During
     var animationDuring = animationDuringDefault {
         didSet {
@@ -100,7 +101,6 @@ class SpreadButton: UIView, CAAnimationDelegate {
     
     var direction: SpreadDirection = spredaDirectionDefault {
         didSet {
-            print("didset")
             if direction == .spreadDirectionTop || direction == .spreadDirectionLeft || direction == .spreadDirectionRight || direction == .spreadDirectionBottom {
                 spreadAngle = SpreadButton.flowerSpreadAngleDefault
             } else {
@@ -201,6 +201,9 @@ class SpreadButton: UIView, CAAnimationDelegate {
         if isSpread {
             return
         }
+        guard let nonNilsuperview = self.superview else {
+            return
+        }
         switch gesture.state {
         case .began:
             animator.removeAllBehaviors()
@@ -211,15 +214,21 @@ class SpreadButton: UIView, CAAnimationDelegate {
                 snapBehavior.damping = 0.5
                 animator.addBehavior(snapBehavior)
             case .spreadPositionModeTouchBorder:
-                let location = gesture.location(in: self.superview)
+                var location = gesture.location(in: nonNilsuperview)
+                if (!nonNilsuperview.layer.contains(location)) {
+                    //outside superView
+                    location = self.center
+                }
+                let superviewSize = nonNilsuperview.bounds.size
+                let magneticDistance = superviewSize.height * CGFloat(SpreadButton.magneticScopeRatioVertical)
                 var destinationLocation: CGPoint
                 
-                if location.y < 90 {//上面
+                if location.y < magneticDistance {//上面
                     destinationLocation = CGPoint(x: location.x, y: self.bounds.width/2 + touchBorderMargin)
-                } else if location.y > UIScreen.main.bounds.height - 90 {//下面
-                    destinationLocation = CGPoint(x: location.x, y: UIScreen.main.bounds.height - self.bounds.height/2 - touchBorderMargin)
-                } else if location.x > UIScreen.main.bounds.width/2 {//右边
-                    destinationLocation = CGPoint(x: UIScreen.main.bounds.width - (self.bounds.width/2 + touchBorderMargin), y: location.y)
+                } else if location.y > superviewSize.height - magneticDistance {//下面
+                    destinationLocation = CGPoint(x: location.x, y: superviewSize.height - self.bounds.height/2 - touchBorderMargin)
+                } else if location.x > superviewSize.width/2 {//右边
+                    destinationLocation = CGPoint(x: superviewSize.width - (self.bounds.width/2 + touchBorderMargin), y: location.y)
                 } else {//左边
                     destinationLocation = CGPoint(x: self.bounds.width/2 + touchBorderMargin, y: location.y)
                 }
@@ -241,7 +250,9 @@ class SpreadButton: UIView, CAAnimationDelegate {
             
         default:
             let location = gesture.location(in: self.superview)
-            self.center = location
+            if (nonNilsuperview.layer.contains(location)) {
+                self.center = location
+            }
         }
     }
     
@@ -475,35 +486,39 @@ class SpreadButton: UIView, CAAnimationDelegate {
     }
     
     func changeSpreadDirection() {
-        let screenWidth = UIScreen.main.bounds.width
-        let screenHeight = UIScreen.main.bounds.height
-        let centerAreaWidth = screenWidth - 2 * radius
+        guard let nonNilSuperview = self.superview else {
+            return
+        }
+        let superviewWidth = nonNilSuperview.bounds.width
+        let superviewHeight = nonNilSuperview.bounds.height
+        
+        let centerAreaWidth = superviewWidth - 2 * radius
         let location = self.center
         //改变Spreading的位置
         superViewRelativePosition = location
         
-        if location.x < screenWidth/2 - centerAreaWidth/2 {//左边
+        if location.x < superviewWidth/2 - centerAreaWidth/2 {//左边
             switch location.y {
             case 0..<radius:
                 direction = .spreadDirectionRightDown
-            case radius..<(screenHeight - radius):
+            case radius..<(superviewHeight - radius):
                 direction = .spreadDirectionRight
-            case (screenHeight - radius)..<screenHeight:
+            case (superviewHeight - radius)..<superviewHeight:
                 direction = .spreadDirectionRightUp
             default: break
             }
-        } else if location.x > screenWidth/2 + centerAreaWidth/2 {//右边
+        } else if location.x > superviewWidth/2 + centerAreaWidth/2 {//右边
             switch location.y {
             case 0..<radius:
                 direction = .spreadDirectionLeftDown
-            case radius..<(screenHeight - radius):
+            case radius..<(superviewHeight - radius):
                 direction = .spreadDirectionLeft
-            case (screenHeight - radius)..<screenHeight:
+            case (superviewHeight - radius)..<superviewHeight:
                 direction = .spreadDirectionLeftUp
             default: break
             }
         } else {//中间
-            if location.y < screenHeight/2 {
+            if location.y < superviewHeight/2 {
                 direction = .spreadDirectionBottom
             } else {
                 direction = .spreadDirectionTop

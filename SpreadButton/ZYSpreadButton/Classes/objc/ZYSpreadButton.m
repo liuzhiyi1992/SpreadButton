@@ -8,12 +8,9 @@
 
 #import "ZYSpreadButton.h"
 
-@interface ZYSpreadButton ()
-
+@interface ZYSpreadButton () <CAAnimationDelegate>
 @property (strong, nonatomic) UIDynamicAnimator *animator;
-
 @end
-
 
 @implementation ZYSpreadButton
 
@@ -93,14 +90,19 @@
                 case SpreadPositionModeTouchBorder:
                 {
                     CGPoint location = [gesture locationInView:self.superview];
+                    if (![self.superview.layer containsPoint:location]) {
+                        //outside superView
+                        location = self.center;
+                    }
+                    CGSize superViewSize = self.superview.bounds.size;
+                    CGFloat magneticDistance = superViewSize.height * MAGNETIC_SCOPE_RATIO_VERTICAL;
                     CGPoint destinationLocation;
-                    
-                    if (location.y < 90) {//上面区域
+                    if (location.y < magneticDistance) {//上面区域
                         destinationLocation = CGPointMake(location.x, self.bounds.size.width/2 + _touchBorderMargin);
-                    } else if (location.y > [UIScreen mainScreen].bounds.size.height - 90) {//下面
-                        destinationLocation = CGPointMake(location.x, [UIScreen mainScreen].bounds.size.height - self.bounds.size.height/2 - _touchBorderMargin);
-                    } else if (location.x > [UIScreen mainScreen].bounds.size.width/2) {//右边
-                        destinationLocation = CGPointMake([UIScreen mainScreen].bounds.size.width - (self.bounds.size.width/2 + _touchBorderMargin), location.y);
+                    } else if (location.y > superViewSize.height - magneticDistance) {//下面
+                        destinationLocation = CGPointMake(location.x, superViewSize.height - self.bounds.size.height/2 - _touchBorderMargin);
+                    } else if (location.x > superViewSize.width/2) {//右边
+                        destinationLocation = CGPointMake(superViewSize.width - (self.bounds.size.width/2 + _touchBorderMargin), location.y);
                     } else {//左边
                         destinationLocation = CGPointMake(self.bounds.size.width/2 + _touchBorderMargin, location.y);
                     }
@@ -125,7 +127,9 @@
         default:
         {
             CGPoint location = [gesture locationInView:self.superview];
-            self.center = location;
+            if ([self.superview.layer containsPoint:location]) {
+                self.center = location;
+            }
             break;
         }
     }
@@ -296,7 +300,6 @@
 }
 
 - (void)closeSubButton:(ZYSpreadSubButton *)exclusiveBtn {
-    //todo 写到这里
     for (ZYSpreadSubButton *btn in _subButtons) {
         if (exclusiveBtn != nil) {
             if (btn != exclusiveBtn) {
@@ -420,40 +423,32 @@
 }
 
 - (void)changeSpreadDirection {
-    //TODO 写到这里
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGFloat centerAreaWidth = screenWidth - 2*_radius;
+    CGFloat superviewWidth = self.superview.bounds.size.width;
+    CGFloat superviewHeight = self.superview.bounds.size.height;
+    CGFloat centerAreaWidth = superviewWidth - 2*_radius;
     CGPoint location = self.center;
     
     //改变下次Spreading的位置
     self.superViewRelativePosition = location;
     
-    if (location.x < (screenWidth - centerAreaWidth)/2) {//左边区域
-        NSLog(@"左边");
+    if (location.x < (superviewWidth - centerAreaWidth)/2) {//左边区域
         if (0 <= location.y && location.y < _radius) {//上
             self.direction = SpreadDirectionRightDown;
-        } else if (_radius <= location.y && location.y < (screenHeight - _radius)) {//中
+        } else if (_radius <= location.y && location.y < (superviewHeight - _radius)) {//中
             self.direction = SpreadDirectionRight;
         } else {//下
             self.direction = SpreadDirectionRightUp;
         }
-        NSLog(@"%d", self.direction);
-    } else if (location.x > screenWidth/2 + centerAreaWidth/2) {//右边区域
-        NSLog(@"右边");
+    } else if (location.x > superviewWidth/2 + centerAreaWidth/2) {//右边区域
         if (0 <= location.y && location.y < _radius) {
             self.direction = SpreadDirectionLeftDown;
-            NSLog(@"top");
-        } else if (_radius <= location.y && location.y < (screenHeight - _radius)) {
+        } else if (_radius <= location.y && location.y < (superviewHeight - _radius)) {
             self.direction = SpreadDirectionLeft;
-            NSLog(@"left");
         } else {
             self.direction = SpreadDirectionLeftUp;
-            NSLog(@"bottom");
         }
     } else {//中间区域
-        NSLog(@"中间");
-        if (location.y < screenHeight/2) {
+        if (location.y < superviewHeight/2) {
             self.direction = SpreadDirectionBottom;
         } else {
             self.direction = SpreadDirectionTop;

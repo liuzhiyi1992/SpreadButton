@@ -35,7 +35,6 @@
 }
 
 - (ButtonClickBlock)buttonClickBlock {
-    NSLog(@"重写了点击Block");
     return _buttonClickBlock;
 }
 

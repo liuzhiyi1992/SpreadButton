@@ -50,6 +50,7 @@ typedef enum {
 #define ANIMATION_DURING_DEFAULT 0.2f
 #define ANIMATION_DURING_TOUCHBORDER_DEFAULT 0.5f
 #define COVER_COLOR_DEFAULT [UIColor blackColor]
+#define MAGNETIC_SCOPE_RATIO_VERTICAL 0.15
 
 @property (assign, nonatomic) SpreadMode mode;
 @property (assign, nonatomic) SpreadPositionMode positionMode;
@@ -59,7 +60,6 @@ typedef enum {
 @property (strong, nonatomic) UIColor *coverColor;
 @property (assign, nonatomic) CGFloat radius;
 @property (assign, nonatomic) CGFloat touchBorderMargin;
-//@property (assign, nonatomic) CGPoint powerButtonPosition;
 @property (assign, nonatomic) CGPoint superViewRelativePosition;
 @property (assign, nonatomic) CGFloat spreadAngle;
 @property (assign, nonatomic) BOOL isSpread;
@@ -74,9 +74,6 @@ typedef enum {
 @property (copy, nonatomic) ButtonWillCloseBlock buttonWillCloseBlock;
 @property (copy, nonatomic) ButtonDidCloseBlock buttonDidCloseBlock;
 
-
 - (instancetype)initWithBackgroundImage:(UIImage *)backgroundImage highlightImage:(UIImage *)highlightImage position:(CGPoint)position;
-
 - (void)setSubButtons:(NSArray *)subButtons;
-
 @end

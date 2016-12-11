@@ -20,8 +20,8 @@ class ViewController: UIViewController {
         
         configureButtonCorner()
         
-        runWithSwiftCode();
-//        runWithObjcCode();
+//        runWithSwiftCode();
+        runWithObjcCode();
     }
     
     //ObjC
