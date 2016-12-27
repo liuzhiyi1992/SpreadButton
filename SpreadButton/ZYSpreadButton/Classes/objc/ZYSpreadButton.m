@@ -301,12 +301,10 @@
 
 - (void)closeSubButton:(ZYSpreadSubButton *)exclusiveBtn {
     for (ZYSpreadSubButton *btn in _subButtons) {
-        if (exclusiveBtn != nil) {
-            if (btn != exclusiveBtn) {
-                [btn removeFromSuperview];
-            }
-            continue;
+        if (btn != exclusiveBtn) {
+            [btn removeFromSuperview];
         }
+        continue;
         
         UIBezierPath *animationPath = [self movingPathWithStartPoint:btn.layer.position keyPointCount:1 keyPoints:_powerButton.layer.position, nil];
         CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];

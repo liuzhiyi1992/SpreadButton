@@ -400,12 +400,10 @@ class SpreadButton: UIView, CAAnimationDelegate {
     
     func closeSubButton(_ exclusiveBtn: SpreadSubButton?) {
         for btn in subButtons! {
-            if exclusiveBtn != nil {
-                if btn != exclusiveBtn {
-                    btn.removeFromSuperview()
-                }
-                continue
+            if btn != exclusiveBtn {
+                btn.removeFromSuperview()
             }
+            continue
             
             let animationPath = movingPath(btn.layer.position, keyPoints: powerButton.layer.position)
             let positionAnimation = CAKeyframeAnimation(keyPath: "position")
